@@ -5,8 +5,8 @@ use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return response()->json('ce que tu veux');
+    return response()->json('Hello');
 });
 
 Route::post('/register', RegisterController::class);
-Route::get('/login', LoginController::class);
+Route::post('/login', LoginController::class);
