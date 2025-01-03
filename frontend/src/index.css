@@ -94,3 +94,7 @@ h1 {
 .nav-footer {
   font-size: 1.5em;
 }
+
+input:-internal-autofill-selected{
+
+}

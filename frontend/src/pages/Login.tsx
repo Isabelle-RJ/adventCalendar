@@ -1,9 +1,9 @@
-import { IoLockClosed } from "react-icons/io5";
-import { AiOutlineUser } from "react-icons/ai";
-import React from "react";
-import Image from '../assets/background17.png';
+import {IoLockClosed} from "react-icons/io5"
+import {AiOutlineUser} from "react-icons/ai"
+import Image from '../assets/background17.png'
+import {Link} from "react-router"
 
-const Login: React.FC = () => {
+export default function Login() {
     return (
         <>
             {/* Contenu principal */}
@@ -18,42 +18,46 @@ const Login: React.FC = () => {
                             <div className="absolute inset-y-0 end-2 flex items-center ps-3.5 pointer-events-none">
                                 <AiOutlineUser className="w-6 h-6 text-secondary-dore"/>
                             </div>
-                            <input type="text"
-                                   id="email-address-icon"
-                                   className="text-form-log bg-primary-trans-blue border border-none text-secondary-dore
-                                   placeholder-secondary-light-dore rounded-lg block w-full ps-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:outline-none focus:ring-1 focus:ring-secondary-dore focus:border-secondary-dore"
-                                   placeholder="exemple@email.com"/>
+                            <input
+                                type="text"
+                                id="email-address-icon"
+                                className="text-form-log bg-primary-trans-blue border border-none text-secondary-dore placeholder-secondary-light-dore rounded-lg block w-full ps-2 p-2.5 focus:bg-primary-trans-blue focus:outline-none focus:ring-1 focus:ring-secondary-dore focus:border-secondary-dore"
+                                placeholder="exemple@email.com"/>
                         </div>
                         <div className="relative mb-4">
                             <div className="absolute inset-y-0 end-2 flex items-center ps-3.5 pointer-events-none">
                                 <IoLockClosed className="w-6 h-6 text-secondary-dore"/>
                             </div>
-                            <input type="text"
+                            <input type="password"
                                    id="email-address-icon"
-                                   className="text-form-log bg-primary-trans-blue border border-none text-secondary-dore
-                                   placeholder-secondary-light-dore text-lg rounded-lg block w-full ps-2 p-2.5 focus:outline-none focus:ring-1 focus:ring-secondary-dore focus:border-secondary-dore"
-                                   placeholder="•••••"/>
+                                   className="text-form-log bg-primary-trans-blue border border-none text-secondary-dore placeholder-secondary-light-dore text-lg rounded-lg block w-full ps-2 p-2.5 focus:outline-none focus:ring-1 focus:ring-secondary-dore focus:border-secondary-dore"
+                                   placeholder="*****"/>
                         </div>
-                        <a href="#"
-                           className="text-form-log text-secondary-dore hover:text-secondary-ivory underline block mb-4">
+                        <Link
+                            to="/password-lost"
+                            className="text-form-log text-secondary-dore hover:text-secondary-ivory underline block mb-4">
                             Mot de passe oublié ?
-                        </a>
+                        </Link>
 
-                        <button type="submit"
-                                className="btn-form-submit w-full text-secondary-dore hover:bg-secondary-dore hover:text-primary-x-dark hover:font-bold py-2 rounded font-semi-bold">
+                        <Link
+                            to="/dashbord"
+                            type="submit"
+                            className="btn-form-submit w-full text-secondary-dore hover:bg-secondary-dore hover:text-primary-x-dark hover:font-bold py-2 rounded font-semi-bold">
                             Se connecter
-                        </button>
+                        </Link>
                     </form>
                 </div>
-
-
-                <button className="btn-form-log mt-4 bg-secondary-dore font-bold underline hover:bg-primary-x-dark hover:text-secondary-dore text-primary-x-dark py-2 px-4 rounded font-semi-bold shadow-lg">
+                <Link
+                    to="/register"
+                    className="btn-form-log mt-4 bg-secondary-dore font-bold underline hover:bg-primary-x-dark hover:text-secondary-dore text-primary-x-dark py-2 px-4 rounded font-semi-bold shadow-lg"
+                >
                     Créer votre compte
-                </button>
+                </Link>
+
             </main>
         </>
     );
 };
 
-export default Login;
+
 
