@@ -9,6 +9,7 @@ export default {
       colors: {
         'primary-x-dark': '#121221',
         'primary-dark': '#242440',
+        'primary-trans-dark': 'rgba(1, 4, 33, 0.7)',
         'primary-blue': '#4A6FA5',
         'primary-trans-blue': 'rgba(74, 111, 165, 0.2)',
         'secondary-dore': '#B8A65D',

@@ -1,14 +1,15 @@
-import {IoLockClosed} from "react-icons/io5"
-import {AiOutlineUser} from "react-icons/ai"
-import Image from '../assets/background17.png'
-import {Link} from "react-router"
+import {IoLockClosed} from "react-icons/io5";
+import {AiOutlineUser} from "react-icons/ai";
+import React from "react";
+import Image from '../assets/background17.png';
+import {Link} from "react-router";
 
-export default function Login() {
+const Login: React.FC = () => {
     return (
         <>
             {/* Contenu principal */}
             <main className="div-main-login w-full flex-grow flex flex-col items-center justify-center bg-cover bg-center"
-                  style={{backgroundImage: `url(${Image})`}}>
+                  style={{ backgroundImage: `url(${Image})` }}>
                 <h1 className="title-login text-5xl font-semi-bold text-secondary-dore mb-8">Connexion</h1>
                 <div className="div-form-login md:w-[40%]">
                     <form className="bg-primary-x-dark p-8 rounded-lg w-full">
@@ -21,7 +22,7 @@ export default function Login() {
                             <input
                                 type="text"
                                 id="email-address-icon"
-                                className="text-form-log bg-primary-trans-blue border border-none text-secondary-dore placeholder-secondary-light-dore rounded-lg block w-full ps-2 p-2.5 focus:bg-primary-trans-blue focus:outline-none focus:ring-1 focus:ring-secondary-dore focus:border-secondary-dore"
+                                className="text-form-log bg-primary-trans-blue border border-none text-secondary-dore placeholder-secondary-light-dore rounded-lg block w-full ps-2 p-2.5 focus:bg-primary-trans-blue selected:bg-primary-trans-blue focus:outline-none focus:ring-1 focus:ring-secondary-dore focus:border-secondary-dore"
                                 placeholder="exemple@email.com"/>
                         </div>
                         <div className="relative mb-4">
@@ -59,5 +60,5 @@ export default function Login() {
     );
 };
 
-
+export default Login;
 
