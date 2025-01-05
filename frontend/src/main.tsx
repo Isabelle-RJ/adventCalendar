@@ -8,6 +8,7 @@ import Dashboard from './pages/Dashboard.tsx'
 import LayoutAdmin from './components/LayoutAdmin.tsx'
 import LegalesMentions from './pages/LegalesMentions.tsx'
 import CGU from './pages/CGU.tsx'
+import Contact from './pages/Contact.tsx'
 
 const root = document.getElementById('root')
 
@@ -23,6 +24,8 @@ ReactDOM.createRoot(root!).render(
           element={<LegalesMentions />} />
         <Route path="/cgu"
           element={<CGU />} />
+        <Route path="/contact"
+          element={<Contact />} />
       </Route>
       <Route element={<LayoutAdmin />}>
         <Route path="/dashboard"
