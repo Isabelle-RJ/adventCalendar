@@ -57,7 +57,7 @@ h1 {
     }
 }
 
-/* Pages connexion - inscription */
+/* Pages  */
 .title-login {
     font-family: Mochiy Pop One;
 }
@@ -133,4 +133,10 @@ h1 {
 
 .title-home{
     font-family: "Mochiy Pop One";
+}
+
+.title-mentions{
+    font-family: "Mochiy Pop One";
+    padding: 1rem;
+    margin: 1rem;
 }

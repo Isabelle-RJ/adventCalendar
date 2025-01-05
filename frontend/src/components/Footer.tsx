@@ -15,11 +15,6 @@ export default function Footer() {
                             to="/cgu"
                             className="hover:text-secondary-ivory">Conditions générales d'utilisation</Link>
                     </li>
-                    <li className="nav-footer mr-2">
-                        <Link
-                            to="/contact"
-                            className="hover:text-secondary-ivory">Contact</Link>
-                    </li>
                 </ul>
                 <hr className="my-6 border-primary-dark"/>
                 <span className="block text-secondary-argent sm:text-center ">

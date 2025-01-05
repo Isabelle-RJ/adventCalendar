@@ -6,6 +6,7 @@ import Login from './pages/Login'
 import Layout from './components/Layout'
 import Dashboard from './pages/Dashboard.tsx'
 import LayoutAdmin from './components/LayoutAdmin.tsx'
+import LegalesMentions from './pages/LegalesMentions.tsx'
 
 const root = document.getElementById('root')
 
@@ -17,6 +18,8 @@ ReactDOM.createRoot(root!).render(
                element={<App/>}/>
         <Route path="/login"
                element={<Login/>}/>
+        <Route path="/legale-mentions"
+                element={<LegalesMentions/>}/>
       </Route>
       <Route element={<LayoutAdmin/>}>
         <Route path="/dashboard"
