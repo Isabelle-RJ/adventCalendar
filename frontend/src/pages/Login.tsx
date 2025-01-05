@@ -1,10 +1,9 @@
-import {IoLockClosed} from "react-icons/io5";
-import {AiOutlineUser} from "react-icons/ai";
-import React from "react";
-import Image from '../assets/background17.png';
-import {Link} from "react-router";
+import {IoLockClosed} from "react-icons/io5"
+import {AiOutlineUser} from "react-icons/ai"
+import Image from '../assets/background17.png'
+import {Link} from "react-router"
 
-const Login: React.FC = () => {
+export default function Login(){
     return (
         <>
             {/* Contenu principal */}
@@ -57,8 +56,8 @@ const Login: React.FC = () => {
 
             </main>
         </>
-    );
-};
+    )
+}
 
-export default Login;
+
 

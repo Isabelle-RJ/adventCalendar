@@ -7,23 +7,26 @@ import Layout from './components/Layout'
 import Dashboard from './pages/Dashboard.tsx'
 import LayoutAdmin from './components/LayoutAdmin.tsx'
 import LegalesMentions from './pages/LegalesMentions.tsx'
+import CGU from './pages/CGU.tsx'
 
 const root = document.getElementById('root')
 
 ReactDOM.createRoot(root!).render(
   <BrowserRouter>
     <Routes>
-      <Route element={<Layout/>}>
+      <Route element={<Layout />}>
         <Route path="/"
-               element={<App/>}/>
+          element={<App />} />
         <Route path="/login"
-               element={<Login/>}/>
+          element={<Login />} />
         <Route path="/legale-mentions"
-                element={<LegalesMentions/>}/>
+          element={<LegalesMentions />} />
+        <Route path="/cgu"
+          element={<CGU />} />
       </Route>
-      <Route element={<LayoutAdmin/>}>
+      <Route element={<LayoutAdmin />}>
         <Route path="/dashboard"
-               element={<Dashboard/>}/>
+          element={<Dashboard />} />
       </Route>
     </Routes>
   </BrowserRouter>,
