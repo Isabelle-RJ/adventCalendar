@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import Calendar from '../components/Calendar.tsx'
+import { useAuth } from '../store/AuthContext.tsx'
 
 interface Calendar {
   id: number,
@@ -11,7 +12,8 @@ interface Calendar {
 
 export default function Dashboard() {
   const [calendars, setCalendars] = useState<Calendar[]>([])
-
+  const { authStatus } = useAuth()
+  console.log(authStatus)
   async function handleDelete(slug: string) {
     const response = await fetch(`http://localhost:9001/api/calendars/${slug}`, {
       method: 'DELETE',
@@ -25,7 +27,7 @@ export default function Dashboard() {
     const data = await response.json()
     console.log(data)
     void fetchCalendars()
-  } {/* TODO : supprimer les console.log */}
+  } {/* TODO : supprimer les console.log */ }
 
   async function fetchCalendars() {
     const response = await fetch('http://localhost:9001/api/calendars')
@@ -39,7 +41,7 @@ export default function Dashboard() {
     })))
   }
 
-  {/* Détermine s'il y a des changements dans mon application en fonction d'une dépendance */}
+  {/* Détermine s'il y a des changements dans mon application en fonction d'une dépendance */ }
   useEffect(() => {
     void fetchCalendars()
   }, [])
@@ -53,15 +55,15 @@ export default function Dashboard() {
       </div>
       <div className="div-grids grid wrap gap-4 sm:grid-cols-1 md:grid-cols-2 bg-primary-trans-dark m-8">
         {calendars.map((calendar) => {
-            if (!calendar.isBlocked) {
-              return <Calendar
-                key={calendar.id}
-                title={calendar.title}
-                image={calendar.image}
-                slug={calendar.slug}
-                onDelete={() => handleDelete(calendar.slug)}/>
-            }
-          },
+          if (!calendar.isBlocked) {
+            return <Calendar
+              key={calendar.id}
+              title={calendar.title}
+              image={calendar.image}
+              slug={calendar.slug}
+              onDelete={() => handleDelete(calendar.slug)} />
+          }
+        },
         )}
       </div>
     </>

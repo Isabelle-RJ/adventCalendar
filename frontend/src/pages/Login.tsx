@@ -1,37 +1,54 @@
-import {IoLockClosed} from "react-icons/io5"
-import {AiOutlineUser} from "react-icons/ai"
+import { IoLockClosed } from "react-icons/io5"
+import { AiOutlineUser } from "react-icons/ai"
 import Image from '../assets/background17.png'
-import {Link} from "react-router"
+import { Link } from "react-router"
+import { FormEvent } from "react"
+import { useAuth } from "../store/AuthContext"
 
-export default function Login(){
+export default function Login() {
+
+    const { login } = useAuth()
+
+    async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault()
+        const formData = new FormData(event.currentTarget)
+        login(formData.get('email') as string, formData.get('password') as string)
+
+    }
+
     return (
         <>
             {/* Contenu principal */}
             <main className="div-main-login w-full flex-grow flex flex-col items-center justify-center bg-cover bg-center"
-                  style={{ backgroundImage: `url(${Image})` }}>
+                style={{ backgroundImage: `url(${Image})` }}>
                 <h1 className="title-login text-5xl font-semi-bold text-secondary-dore mb-8">Connexion</h1>
                 <div className="div-form-login md:w-[40%]">
-                    <form className="bg-primary-x-dark p-8 rounded-lg w-full">
+                    <form
+                        onSubmit={handleSubmit}
+                        className="bg-primary-x-dark p-8 rounded-lg w-full">
                         <label htmlFor="email-address-icon">
                         </label>
                         <div className="relative mb-4">
                             <div className="absolute inset-y-0 end-2 flex items-center ps-3.5 pointer-events-none">
-                                <AiOutlineUser className="w-6 h-6 text-secondary-dore"/>
+                                <AiOutlineUser className="w-6 h-6 text-secondary-dore" />
                             </div>
                             <input
                                 type="text"
+                                name="email"
                                 id="email-address-icon"
                                 className="text-form-log bg-primary-trans-blue border border-none text-secondary-dore placeholder-secondary-light-dore rounded-lg block w-full ps-2 p-2.5 focus:bg-primary-trans-blue selected:bg-primary-trans-blue focus:outline-none focus:ring-1 focus:ring-secondary-dore focus:border-secondary-dore"
-                                placeholder="exemple@email.com"/>
+                                placeholder="exemple@email.com" />
                         </div>
                         <div className="relative mb-4">
                             <div className="absolute inset-y-0 end-2 flex items-center ps-3.5 pointer-events-none">
-                                <IoLockClosed className="w-6 h-6 text-secondary-dore"/>
+                                <IoLockClosed className="w-6 h-6 text-secondary-dore" />
                             </div>
-                            <input type="password"
-                                   id="email-address-icon"
-                                   className="text-form-log bg-primary-trans-blue border border-none text-secondary-dore placeholder-secondary-light-dore text-lg rounded-lg block w-full ps-2 p-2.5 focus:outline-none focus:ring-1 focus:ring-secondary-dore focus:border-secondary-dore"
-                                   placeholder="*****"/>
+                            <input
+                                type="password"
+                                name="password"
+                                id="password-address-icon"
+                                className="text-form-log bg-primary-trans-blue border border-none text-secondary-dore placeholder-secondary-light-dore text-lg rounded-lg block w-full ps-2 p-2.5 focus:outline-none focus:ring-1 focus:ring-secondary-dore focus:border-secondary-dore"
+                                placeholder="*****" />
                         </div>
                         <Link
                             to="/password-lost"
@@ -39,12 +56,11 @@ export default function Login(){
                             Mot de passe oublié ?
                         </Link>
 
-                        <Link
-                            to="/dashbord"
+                        <button
                             type="submit"
                             className="btn-form-submit w-full text-secondary-dore hover:bg-secondary-dore hover:text-primary-x-dark hover:font-bold py-2 rounded font-semi-bold">
                             Se connecter
-                        </Link>
+                        </button>
                     </form>
                 </div>
                 <Link
