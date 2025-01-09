@@ -40,36 +40,60 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     async function login(email: string, password: string) {
         setAuthStatus("pending")
-        const response = await fetch('http://localhost:9001/api/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                email,
-                password
+        try {
+            const response = await fetch('http://localhost:9001/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email,
+                    password
+                })
             })
-        })
 
-        const data = await response.json()
+            const data = await response.json()
 
-        if (response.ok) {
-            setToken(data.token)
-            setAuthStatus("authenticated")
-            setUser(data.user)
+            if (response.ok) {
+                setToken(data.token)
+                setAuthStatus("authenticated")
+                setUser(data.user)
 
-            navigate('/dashboard')
-        } else {
-            console.error(data)
+                localStorage.setItem('token', data.token)
+                navigate('/dashboard')
+            }
+        }
+        catch (error) {
+            console.error(error)
         }
     }
 
-    function logout() {
-        setToken(null)
-        setAuthStatus("unauthenticated")
-        setUser(null)
+    async function logout() {
+        try {
+            const response = await fetch('http://localhost:9001/api/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Authorization': `Bearer ${token}`,
+                },
+                credentials: 'include'
+            })
 
-        navigate('/')
+            if (response.ok) {
+                setToken(null)
+                setAuthStatus("unauthenticated")
+                setUser(null)
+
+                localStorage.removeItem('token')
+                navigate('/')
+            }
+        }
+        catch (error) {
+            console.error(error)
+        }
+
     }
 
     return (

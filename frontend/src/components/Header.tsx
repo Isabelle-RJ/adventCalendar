@@ -1,8 +1,11 @@
 import { WiStars } from 'react-icons/wi'
 import { HiMenu } from 'react-icons/hi'
 import { NavLink } from 'react-router'
+import { useAuth } from '../store/AuthContext'
 
 export default function Header() {
+  const { authStatus, logout } = useAuth()
+
   return (
     <nav className="bg-primary-x-dark">
       <div className="flex flex-wrap items-center justify-between p-2 me-8 ms-8">
@@ -40,11 +43,21 @@ export default function Header() {
               </NavLink>
             </li>
             <li>
-              <NavLink
-                to="/login"
-                className={({ isActive }) => isActive ? 'li-nav-header hover:text-secondary-ivory text-primary-blue' : 'li-nav-header hover:text-secondary-ivory'}>
-                <WiStars className="icon-stars" />Connexion
-              </NavLink>
+              {authStatus === 'authenticated'
+                ? (
+                  <button
+                    className='li-nav-header hover:text-secondary-ivory'
+                    onClick={logout}>
+                    <WiStars className="icon-stars" />Déconnexion
+                  </button>
+                )
+                : (
+                  <NavLink
+                    to="/login"
+                    className={({ isActive }) => isActive ? 'li-nav-header hover:text-secondary-ivory text-primary-blue' : 'li-nav-header hover:text-secondary-ivory'}>
+                    <WiStars className="icon-stars" />Connexion
+                  </NavLink>
+                )}
             </li>
           </ul>
         </div>
