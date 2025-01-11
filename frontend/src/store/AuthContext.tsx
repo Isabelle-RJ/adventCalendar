@@ -14,6 +14,7 @@ interface AuthContextType {
     authStatus: "pending" | "authenticated" | "unauthenticated"
     setToken: (token: string) => void
     login: (email: string, password: string) => void
+    register: (name: string, email: string, password: string) => void
     logout: () => void
 }
 
@@ -68,6 +69,29 @@ export function AuthProvider({ children }: AuthProviderProps) {
         }
     }
 
+    async function register(name: string, email: string, password: string) {
+        try {
+            const response = await fetch('http://localhost:9001/api/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name,
+                    email,
+                    password
+                })
+            })
+
+            if (response.ok) {
+                navigate('/login')
+            }
+        }
+        catch (error) {
+            console.error(error)
+        }
+    }
+
     async function logout() {
         try {
             const response = await fetch('http://localhost:9001/api/logout', {
@@ -97,7 +121,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
 
     return (
-        <AuthContext.Provider value={{ user, token, authStatus, setToken, login, logout }}>
+        <AuthContext.Provider value={{ user, token, authStatus, setToken, login, register, logout }}>
             {children}
         </AuthContext.Provider>
     )

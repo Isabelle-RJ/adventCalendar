@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './index.css'
 import App from './App.tsx'
 import Login from './pages/Login'
+import Register from './pages/Register.tsx'
 import Layout from './components/Layout'
 import Dashboard from './pages/Dashboard.tsx'
 import LayoutAdmin from './components/LayoutAdmin.tsx'
@@ -23,6 +24,8 @@ ReactDOM.createRoot(root!).render(
             element={<App />} />
           <Route path="/login"
             element={<Login />} />
+          <Route path="/register"
+            element={<Register />} />
           <Route path="/legale-mentions"
             element={<LegalesMentions />} />
           <Route path="/cgu"

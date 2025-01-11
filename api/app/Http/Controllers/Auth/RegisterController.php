@@ -12,7 +12,7 @@ class RegisterController extends Controller
     public function __invoke(Request $request): JsonResponse
     {
         $user = new User();
-        $user->role = $request->role;
+        $user->role = 'user';
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = $request->password;
