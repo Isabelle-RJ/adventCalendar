@@ -1,19 +1,17 @@
 import { useEffect, useState } from 'react'
 import Calendar from '../components/Calendar.tsx'
-import { useAuth } from '../store/AuthContext.tsx'
 
 interface Calendar {
   id: number,
   title: string,
   image: string,
+  itemsCases: string[],
   slug: string,
   isBlocked: boolean,
 }
 
 export default function Dashboard() {
   const [calendars, setCalendars] = useState<Calendar[]>([])
-  const { authStatus } = useAuth()
-  console.log(authStatus)
   async function handleDelete(slug: string) {
     const response = await fetch(`http://localhost:9001/api/calendars/${slug}`, {
       method: 'DELETE',
@@ -24,10 +22,11 @@ export default function Dashboard() {
         slug,
       }),
     })
-    const data = await response.json()
-    console.log(data)
-    void fetchCalendars()
-  } {/* TODO : supprimer les console.log */ }
+
+    if (response.ok) {
+      void fetchCalendars()
+    }
+  }
 
   async function fetchCalendars() {
     const response = await fetch('http://localhost:9001/api/calendars')
@@ -36,6 +35,7 @@ export default function Dashboard() {
       id: calendar.id,
       title: calendar.title,
       image: calendar.theme.image,
+      itemsCases: calendar.items_cases,
       slug: calendar.slug,
       isBlocked: calendar.user.is_blocked,
     })))
@@ -60,8 +60,10 @@ export default function Dashboard() {
               key={calendar.id}
               title={calendar.title}
               image={calendar.image}
+              itemsCases={calendar.itemsCases}
               slug={calendar.slug}
-              onDelete={() => handleDelete(calendar.slug)} />
+              onDelete={() => handleDelete(calendar.slug)}
+            />
           }
         },
         )}
