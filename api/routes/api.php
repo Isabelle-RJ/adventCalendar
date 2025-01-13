@@ -15,10 +15,10 @@ Route::get('/user', function (Request $request) {
 Route::middleware('auth:sanctum')->group(
     function () {
         Route::post('/logout', LogoutController::class);
+        Route::get('/calendars', IndexCalendarController::class);
+        Route::delete('/calendars/{slug}', DeleteCalendarController::class);
     }
 );
 
 Route::post('/register', RegisterController::class);
 Route::post('/login', LoginController::class);
-Route::get('/calendars', IndexCalendarController::class);
-Route::delete('/calendars/{slug}', DeleteCalendarController::class);

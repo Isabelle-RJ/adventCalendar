@@ -10,6 +10,7 @@ interface User {
 
 interface AuthContextType {
     user: User | null
+    error: string | null
     token: string | null //token d'identification
     authStatus: "pending" | "authenticated" | "unauthenticated"
     setToken: (token: string) => void
@@ -26,9 +27,11 @@ interface AuthProviderProps {
 
 export function AuthProvider({ children }: AuthProviderProps) {
     const [user, setUser] = useState<User | null>(null)
+    const [error, setError] = useState<string | null>(null)
     const [token, setToken] = useState<string | null>(null)
     const [authStatus, setAuthStatus] = useState<"pending" | "authenticated" | "unauthenticated">("pending")
     const navigate = useNavigate()
+    console.log(error)
 
     // Déclanche un nouveau rendu à chaque fois que le composant est monté ( à chaque fois que le composant est monté = premier rendu, il va chercher le token dans le local storage)
     useEffect(() => {
@@ -54,6 +57,18 @@ export function AuthProvider({ children }: AuthProviderProps) {
             })
 
             const data = await response.json()
+
+            if (response.status === 403 || response.status === 401) {
+                setAuthStatus("unauthenticated")
+                setError(data.error)
+                return
+            }
+
+            if (response.status === 422) {
+                setAuthStatus("unauthenticated")
+                setError(data.error)
+                return
+            }
 
             if (response.ok) {
                 setToken(data.token)
@@ -102,7 +117,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
                     'X-Requested-With': 'XMLHttpRequest',
                     'Authorization': `Bearer ${token}`,
                 },
-                credentials: 'include'
+                credentials: 'include',
             })
 
             if (response.ok) {
@@ -111,8 +126,15 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 setUser(null)
 
                 localStorage.removeItem('token')
-                navigate('/')
+                return navigate('/')
             }
+
+            setToken(null)
+            setAuthStatus("unauthenticated")
+            setUser(null)
+
+            localStorage.removeItem('token')
+            return navigate('/login')
         }
         catch (error) {
             console.error(error)
@@ -121,7 +143,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
 
     return (
-        <AuthContext.Provider value={{ user, token, authStatus, setToken, login, register, logout }}>
+        <AuthContext.Provider value={{ user, error, token, authStatus, setToken, login, register, logout }}>
             {children}
         </AuthContext.Provider>
     )

@@ -11,6 +11,6 @@ class LogoutController extends Controller
     {
         auth()->user()->tokens()->delete();
 
-        return response()->json(['message' => 'Déconnexion réussie']);
+        return response()->json(['error' => ['message' => 'Déconnexion réussie']]);
     }
 }

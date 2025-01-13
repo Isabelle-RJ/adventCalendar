@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import Calendar from '../components/Calendar.tsx'
+import { useAuth } from '../store/AuthContext.tsx'
 
 interface Calendar {
   id: number,
@@ -12,12 +13,19 @@ interface Calendar {
 
 export default function Dashboard() {
   const [calendars, setCalendars] = useState<Calendar[]>([])
+  const { token } = useAuth()
+  console.log(token)
+
   async function handleDelete(slug: string) {
     const response = await fetch(`http://localhost:9001/api/calendars/${slug}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest',
+        'Authorization': `Bearer ${token}`,
       },
+      credentials: 'include',
       body: JSON.stringify({
         slug,
       }),
@@ -29,7 +37,14 @@ export default function Dashboard() {
   }
 
   async function fetchCalendars() {
-    const response = await fetch('http://localhost:9001/api/calendars')
+    const response = await fetch('http://localhost:9001/api/calendars', {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      credentials: 'include',
+    }
+    )
     const data = await response.json()
     setCalendars(data.calendars.map((calendar: any) => ({
       id: calendar.id,
@@ -43,8 +58,10 @@ export default function Dashboard() {
 
   {/* Détermine s'il y a des changements dans mon application en fonction d'une dépendance */ }
   useEffect(() => {
-    void fetchCalendars()
-  }, [])
+    if (token) {
+      void fetchCalendars()
+    }
+  }, [token])
 
   return (
     <>
@@ -53,6 +70,7 @@ export default function Dashboard() {
           Tous mes calendriers
         </h2>
       </div>
+      {!calendars.length && <p className="text-center text-secondary-dore text-2xl">Aucun calendrier trouvé</p>}
       <div className="div-grids grid wrap gap-4 sm:grid-cols-1 md:grid-cols-2 bg-primary-trans-dark m-8">
         {calendars.map((calendar) => {
           if (!calendar.isBlocked) {
