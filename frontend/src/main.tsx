@@ -12,6 +12,7 @@ import CGU from './pages/CGU.tsx'
 import Contact from './pages/Contact.tsx'
 import { AuthProvider } from './store/AuthContext.tsx'
 import PrivateRoutes from './components/PrivateRoutes.tsx'
+import CreateCalendar from './pages/CreateCalendar.tsx'
 
 const root = document.getElementById('root')
 
@@ -37,6 +38,8 @@ ReactDOM.createRoot(root!).render(
           <Route element={<LayoutAdmin />}>
             <Route path="/dashboard"
               element={<Dashboard />} />
+            <Route path="/create-calendar"
+              element={<CreateCalendar />} />
           </Route>
         </Route>
       </Routes>

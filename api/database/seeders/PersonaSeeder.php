@@ -47,6 +47,7 @@ class PersonaSeeder extends Seeder
                 'theme_name' => $theme['theme_name'],
                 'image' => $theme['image'],
                 'slug' => Str::slug($theme['theme_name']),
+                'user_id' => $theme['user_id'],
             ];
 
             Theme::factory()

@@ -1,3 +1,5 @@
+// Permet de partager les données de manières globales partout dans l'application.
+
 import { createContext, ReactNode, useContext, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 

@@ -65,13 +65,13 @@ export default function Dashboard() {
 
   return (
     <>
-      <div>
-        <h2 className="under-title text-secondary-dore text-3xl bg-primary-dark m-8 py-4 text-center rounded-md ">
+      <div className='w-full mb-4'>
+        <h2 className="under-title text-secondary-dore text-3xl bg-primary-dark py-4 text-center rounded-md ">
           Tous mes calendriers
         </h2>
       </div>
       {!calendars.length && <p className="text-center text-secondary-dore text-2xl">Aucun calendrier trouvé</p>}
-      <div className="div-grids grid wrap gap-4 sm:grid-cols-1 md:grid-cols-2 bg-primary-trans-dark m-8">
+      <div className="div-grids grid wrap gap-4 sm:grid-cols-1 md:grid-cols-2 bg-primary-trans-dark w-full rounded-md">
         {calendars.map((calendar) => {
           if (!calendar.isBlocked) {
             return <Calendar

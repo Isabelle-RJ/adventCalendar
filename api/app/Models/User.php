@@ -59,8 +59,13 @@ class User extends Authenticatable
         ];
     }
 
-    public function calendars():HasMany
+    public function calendars(): HasMany
     {
         return $this->hasMany(Calendar::class);
+    }
+
+    public function themes(): HasMany
+    {
+        return $this->hasMany(Theme::class);
     }
 }

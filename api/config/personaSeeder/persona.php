@@ -40,16 +40,19 @@ return [
             'id' => "139245d2-c872-4f84-94bc-bcd01d7a2dad",
             'theme_name' => 'Thème noël',
             'image' => 'https://www.pexels.com/fr-fr/photo/flatlay-photographie-de-cadeaux-et-de-boules-1303094/',
+            'user_id' => "c3c524af-01bb-4c69-a9db-ea5d68e26076",
         ],
         [
             'id' => "9b07aa74-fd80-4fe7-bd61-70510da0100e",
             'theme_name' => 'Thème chat noël',
             'image' => 'https://www.pexels.com/fr-fr/photo/chat-tigre-brun-a-cote-de-l-arbre-de-noel-236587/',
+            'user_id' => "8f8e45cc-b572-4218-bd01-913b47cca271",
         ],
         [
             'id' => "2396b8fb-6e60-466e-816b-63822590b731",
             'theme_name' => 'Thème sapin',
             'image' => 'https://unsplash.com/fr/photos/boule-blanche-V705bwrTnQI',
+            'user_id' => "74583ecb-9a8e-4fc5-8510-90462c2b3729",
         ],
     ],
     'calendars' => [

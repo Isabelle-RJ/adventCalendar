@@ -26,7 +26,7 @@ export default function Calendar({ title, image, itemsCases, slug, onDelete }: C
         </div>
       </div>
       <div
-        className="container bg-gray-300 mx-auto h-full w-full flex flex-wrap justify-center items-center gap-6 p-4">
+        className="container bg-gray-300 mx-auto w-full flex flex-wrap justify-center items-center gap-6 p-4">
         {itemsCases.map((itemCase) => <ItemCase
           key={itemCase.id}
           id={itemCase.id}

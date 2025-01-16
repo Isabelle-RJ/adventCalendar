@@ -6,18 +6,16 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class LoginFormRequest extends FormRequest
+class UploadFileFormRequest extends FormRequest
 {
     public function authorize(): bool
     {
         return true;
     }
-
     public function rules(): array
     {
         return [
-            'email' => 'required|email',
-            'password' => 'required|string|min:12',
+            'file' => 'required|file|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 
