@@ -18,8 +18,8 @@ class UploadFilesController extends Controller
     public function __invoke(UploadFileFormRequest $request): JsonResponse
     {
         if (!Storage::disk('local')->exists('uploads')) {
-
             Storage::disk('local')->makeDirectory('uploads');
+            chmod(storage_path('/app/private/uploads'), 0777);
         }
 
         if (Storage::disk('local')->exists('uploads/' . $request->file('file')->getClientOriginalName())) {
@@ -32,10 +32,10 @@ class UploadFilesController extends Controller
         $optimizerService->scale(self::DEFAULT_WIDTH);
         $optimizerService->encode(self::DEFAULT_QUALITY);
 
-        dd($request->file('file')->getClientOriginalName(), $request->file('file')->getPathname());
-        $optimizerService->save(storage_path('uploads/' . $request->file('file')->getClientOriginalName()));
+        $optimizerService->save(storage_path('/app/private/uploads/' . $request->file('file')->getClientOriginalName()));
 
         if (Storage::disk('local')->exists('uploads/' . $request->file('file')->getClientOriginalName())) {
+            chmod(storage_path('/app/private/uploads/' . $request->file('file')->getClientOriginalName()), 0777);
 
             return response()->json([
                 'message' => "L'image a bien été enregistrée",
