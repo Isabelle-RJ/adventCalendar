@@ -12,7 +12,10 @@ class CreateThemeController extends Controller
 {
     public function __invoke(CreateThemeFormRequest $request): JsonResponse
     {
-        $authenticatedUser = auth()->user();
+        $authenticatedUser = auth()->user()->role;
+        if ($authenticatedUser !== 'admin') {
+            return response()->json(['error' => 'Vous n\'avez pas les droits pour créer un thème.']);
+        }
         $theme = new Theme();
         $theme->theme_name = $request->theme_name;
         $theme->user_id = $authenticatedUser->id;

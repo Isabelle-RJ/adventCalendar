@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class UploadFileFormRequest extends FormRequest
+class GetFileFormRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -15,7 +15,9 @@ class UploadFileFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'file' => 'required|file|image|mimes:jpeg,png,jpg,gif,svg',
+            'path' => 'required|string',
+            'width' => 'integer',
+            'quality' => 'integer',
         ];
     }
 
