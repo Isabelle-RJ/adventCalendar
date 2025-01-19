@@ -4,7 +4,7 @@ import { NavLink } from 'react-router'
 import { useAuth } from '../store/AuthContext'
 
 export default function Header() {
-  const { authStatus, logout } = useAuth()
+  const { authStatus, logout, user } = useAuth() // destructuration de l'objet useAuth
 
   return (
     <nav className="bg-primary-x-dark">
@@ -17,6 +17,9 @@ export default function Header() {
             alt="Logo de Osez Noël"
           />
         </NavLink>
+        {authStatus === 'authenticated' && user && (
+          <div className="pseudo li-nav-header text-secondary-dore">Bonjour {user.name} !</div>
+        )}
         <button data-collapse-toggle="navbar-default"
           type="button"
           className="btn-burger inline-flex items-center p-2 justify-center lg:hidden hover:bg-primary-dark"

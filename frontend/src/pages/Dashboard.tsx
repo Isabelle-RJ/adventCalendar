@@ -71,7 +71,7 @@ export default function Dashboard() {
         </h2>
       </div>
       {!calendars.length && <p className="text-center text-secondary-dore text-2xl">Aucun calendrier trouvé</p>}
-      <div className="div-grids grid wrap gap-4 sm:grid-cols-1 md:grid-cols-2 bg-primary-trans-dark w-full rounded-md">
+      <div className="bg-primary-trans-dark w-full rounded-md">
         {calendars.map((calendar) => {
           if (!calendar.isBlocked) {
             return <Calendar

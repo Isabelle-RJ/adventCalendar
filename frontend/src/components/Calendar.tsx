@@ -12,10 +12,12 @@ export interface CalendarProps {
 }
 
 export default function Calendar({ title, image, itemsCases, slug, onDelete }: CalendarProps) {
+
   return (
     <div className="div-calendar-grid m-8 text-secondary-argent text-3xl text-center">
       <div className="calendar-option">
         <span className="name-calendar-present">{title}</span>
+
         <div className="div-options flex flex-row">
           <Link to={`/calendar/update/${slug}`}> {/* string templating : slug = calendrier-de-prenom */}
             <MdOutlineEditCalendar className="icons-calendar text-secondary-argent hover:text-primary-blue" />
@@ -26,7 +28,9 @@ export default function Calendar({ title, image, itemsCases, slug, onDelete }: C
         </div>
       </div>
       <div
-        className="container bg-gray-300 mx-auto w-full flex flex-wrap justify-center items-center gap-6 p-4">
+        className="container mx-auto w-full flex flex-wrap justify-center items-center gap-6 p-4  }}"
+        style={{ backgroundImage: `url(http://localhost:9001/public?path=${image})` }}
+      >
         {itemsCases.map((itemCase) => <ItemCase
           key={itemCase.id}
           id={itemCase.id}

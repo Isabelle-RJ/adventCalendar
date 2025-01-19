@@ -35,7 +35,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const navigate = useNavigate()
     console.log(error)
 
-    // Déclanche un nouveau rendu à chaque fois que le composant est monté ( à chaque fois que le composant est monté = premier rendu, il va chercher le token dans le local storage)
+    // Déclanche un nouveau rendu à chaque fois que le composant est monté ( = premier rendu, il va chercher le token dans le local storage)
     useEffect(() => {
         const token = localStorage.getItem('token')
         if (token) {
