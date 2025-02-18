@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $id
  * @property string $theme_name
  * @property string $image
+ * @property string $slug
+ * @property string $user_id
  */
 class Theme extends Model
 {
@@ -22,6 +24,7 @@ class Theme extends Model
     protected $fillable = [
         'theme_name',
         'image',
+        'slug',
     ];
 
     public function calendars(): HasMany

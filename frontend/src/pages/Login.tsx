@@ -1,14 +1,19 @@
 import { IoLockClosed } from "react-icons/io5"
 import { AiOutlineUser } from "react-icons/ai"
 import Image from '../assets/background17.png'
-import { Link } from "react-router"
+import { Link, useLocation } from 'react-router'
 import { FormEvent } from "react"
 import { useAuth } from "../store/AuthContext"
+import { Navigate } from 'react-router-dom'
 
 export default function Login() {
 
-    const { login, error } = useAuth()
+    const { login, error, authStatus, user } = useAuth()
+    const location = useLocation()
 
+    if (location.pathname === '/login' && authStatus === 'authenticated' && user) {
+        return <Navigate to="/" />
+    }
     async function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
         const formData = new FormData(event.currentTarget)

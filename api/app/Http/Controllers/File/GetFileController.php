@@ -20,7 +20,7 @@ class GetFileController extends Controller
 
     public function __invoke(GetFileFormRequest $request): ResponseFactory|Response|BinaryFileResponse
     {
-        if (!Storage::disk('public')->exists('/uploads/chocobo-mog.jpg')) {
+        if (!Storage::disk('public')->exists($request->path)) {
             throw new RuntimeException('File not found', 404);
         }
 

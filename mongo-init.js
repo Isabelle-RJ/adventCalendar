@@ -1,11 +1,11 @@
-db = db.getSiblingDb("adventCalendar");
+db = db.getSiblingDb("adventcalendarmongo");
 db.createUser({
-    user: "adventCalendar",
-    pwd: "adventCalendar",
+    user: "adventcalendarmongo",
+    pwd: "adventcalendarmongo",
     roles: [
         {
             role: "readWrite",
-            db: "adventCalendar"
+            db: "adventcalendarmongo"
         }
     ]
 })

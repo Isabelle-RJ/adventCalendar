@@ -2,17 +2,22 @@ import { ChangeEvent, useRef, useState } from 'react'
 import { CgAddR } from 'react-icons/cg'
 import { useAuth } from '../store/AuthContext'
 import FilePreview from './FilePreview'
+import Modal from './Modal'
 
 interface DropzoneProps {
-    onFileChange: (file: File) => void
+    isMultiple?: boolean
+    withModal?: boolean
+    onFetch?: () => void
 }
 
-export default function Dropzone() {
+export default function Dropzone({ isMultiple = true, withModal = false, onFetch }: DropzoneProps) {
     const [files, setFiles] = useState<File[]>([])
     const [loading, setLoading] = useState<boolean>(false)
     const [error, setError] = useState<string>('')
     const [success, setSuccess] = useState<string>('')
     const { token } = useAuth()
+    const [open, setOpen] = useState<boolean>(false)
+    const disabled = loading || files.length === 0 || !!error
 
     const dropzoneRef = useRef<HTMLDivElement>(null)
     const fileInputRef = useRef<HTMLInputElement>(null)
@@ -34,16 +39,48 @@ export default function Dropzone() {
                 headers: {
                     contentType: 'multipart/form-data',
                     Accept: 'application/json',
-                    Authorization: `Bearer ${token}`
+                    Authorization: `Bearer ${token}`,
                 },
                 credentials: 'include',
-                body: formData
+                body: formData,
             })
-            setSuccess('File uploaded successfully')
-        } catch (error) {
-            setError('Error uploading file')
+
+            if (!response.ok) {
+                const data = await response.json()
+
+                throw new Error(data.error ?? data.message)
+            }
+        } catch (error: any) {
+            throw new Error(error.message)
         } finally {
             setLoading(false)
+        }
+    }
+
+    async function uploadToDatabase(themeName: string, image: string) {
+        try {
+            const response = await fetch('http://localhost:9001/api/themes/create', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Authorization': `Bearer ${token}`,
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                    theme_name: themeName,
+                    image: image,
+                }),
+            })
+
+            if (!response.ok) {
+                const data = await response.json()
+
+                throw new Error(data.error ?? data.message)
+            }
+        } catch (error: any) {
+            throw new Error(error.message)
         }
     }
 
@@ -51,16 +88,32 @@ export default function Dropzone() {
         setLoading(true)
 
         const uploadFilesPromised = files.map(async (file) => (
-            await uploadFilesLaravelLocalStorage(file)
+          await uploadFilesLaravelLocalStorage(file)
         ))
 
         try {
             await Promise.all(uploadFilesPromised)
-            setSuccess('Files uploaded successfully')
-        } catch (error) {
-            setError('Error uploading files')
+        } catch (error: Error) {
+            setError(error.message)
+            return
+        }
+        try {
+            await Promise.all(files.map(async (file) => (
+              await uploadToDatabase(file.name, file.name)
+            )))
+        } catch (error: Error) {
+            setError(error.message)
+            return
         } finally {
+            setSuccess('Images importées avec succès')
+            clearFiles()
+            if (onFetch) {
+                onFetch()
+            }
             setLoading(false)
+            if (withModal) {
+                setOpen(false)
+            }
         }
     }
 
@@ -105,7 +158,6 @@ export default function Dropzone() {
     }
 
     function handleFileChange(e: ChangeEvent<HTMLInputElement>) {
-        console.log('toto')
         setError('')
         setSuccess('')
 
@@ -127,7 +179,6 @@ export default function Dropzone() {
             setFiles(prevFiles => [...prevFiles, newFiles[i]])
         }
     }
-    console.log(files)
 
     function handleSelectFiles() {
         fileInputRef.current?.click()
@@ -140,42 +191,118 @@ export default function Dropzone() {
         setFiles(newFiles)
     }
 
+    if (withModal) {
+        return (
+          <>
+              <Modal open={open} setOpen={setOpen} backgroudColor="bg-primary-x-dark" height="h-screen md:h-4/5"
+                     width="w-screen md:w-4/5">
+                  <div
+                    className="flex flex-col p-4 items-center justify-center h-full w-full border-2 border-dashed border-secondary-dore text-secondary-dore"
+                    ref={dropzoneRef}
+                    onDragOver={handleDragover}
+                    onDragLeave={handleDragleave}
+                    onDrop={handleDrop}
+                  >
+                      {error && <p className="text-red-500">{error}</p>}
+                      {success && <p className="text-green-500">{success}</p>}
+                      <h2 className="text-base lg:text-[1.5rem] font-semibold text-secondary-ivory">Télécharger votre image</h2>
+                      <input
+                        type="file"
+                        className="hidden"
+                        multiple={isMultiple}
+                        ref={fileInputRef}
+                        onChange={handleFileChange}
+                        name="file"
+                      />
+                      <CgAddR
+                        className="icon-dropzone cursor-pointer color-secondary-dore w-12 h-12 my-1"
+                        onClick={handleSelectFiles}
+                      />
+                      <div className={`flex flex-col md:flex-row items-center justify-center mb-2`}>
+                          <button
+                            className={`btn-primary-light mr-2 border-2 p-1  ${disabled ? 'bg-gray-100 text-gray-500 cursor-not-allowed' : 'border-secondary-dore  hover:bg-secondary-dore hover:text-white'}`}
+                            onClick={handleClickUpload}
+                            disabled={disabled}
+                          >
+                              Importer les images
+                          </button>
+                          <button
+                            className="btn-primary-light p-1 hover:text-white"
+                            onClick={clearFiles}
+                          >
+                              Annuler
+                          </button>
+                      </div>
+                      <div className="flex flex-col justify-center items-center justify-center">
+                          {files.map((file: File) => (
+                            <FilePreview
+                              key={file.name}
+                              file={file}
+                              handleRemoveFile={() => handleRemoveFile(file)}
+                            />
+                          ))}
+                      </div>
+                  </div>
+              </Modal>
+              <div
+                className="min-h-[300px] flex justify-center items-center cursor-pointer border-2 border-secondary-dore hover:border-4"
+                onClick={() => setOpen(true)}>
+                  <p className="btn-primary-light">
+                      Ajouter des images
+                  </p>
+              </div>
+          </>
+        )
+    }
 
     return (
-        <div className="flex flex-col items-center justify-center h-[10rem] w-[15rem] sm:h-[12rem] sm:w-[18rem] md:h-[15rem] md:w-[20rem] lg:h-[18rem] lg:w-full border-2 border-dashed border-secondary-dore text-secondary-dore min-w-[32rem]"
-            onClick={() => { console.log('clicked') }}
-            ref={dropzoneRef}
-            onDragOver={handleDragover}
-            onDragLeave={handleDragleave}
-            onDrop={handleDrop}
-        >
-            {error && <p className="text-red-500">{error}</p>}
-            <h2 className="text-[1.5rem] font-semibold text-secondary-ivory">Télécharger votre image</h2>
-            <input
-                type="file"
-                className="hidden"
-                ref={fileInputRef}
-                onChange={handleFileChange}
-            />
-            <CgAddR
-                className='icon-dropzone color-secondary-dore w-12 h-12'
-                onClick={handleSelectFiles}
-            />
-            <button
-                className="btn-primary-light"
+      <div
+        className="flex flex-col p-4 items-center justify-center h-full w-full border-2 border-dashed border-secondary-dore text-secondary-dore"
+        onClick={() => { console.log('clicked') }}
+        ref={dropzoneRef}
+        onDragOver={handleDragover}
+        onDragLeave={handleDragleave}
+        onDrop={handleDrop}
+      >
+          {error && <p className="text-red-500">{error}</p>}
+          {success && <p className="text-green-500">{success}</p>}
+          <h2 className="text-base lg:text-[1.5rem] font-semibold text-secondary-ivory">Télécharger votre image</h2>
+          <input
+            type="file"
+            className="hidden"
+            multiple={isMultiple}
+            ref={fileInputRef}
+            onChange={handleFileChange}
+            name="file"
+          />
+          <CgAddR
+            className="icon-dropzone cursor-pointer color-secondary-dore w-12 h-12 my-1"
+            onClick={handleSelectFiles}
+          />
+          <div className={`flex flex-col md:flex-row items-center justify-center mb-2`}>
+              <button
+                className={`btn-primary-light mr-2 border-2 p-1  ${disabled ? 'bg-gray-100 text-gray-500 cursor-not-allowed' : 'border-secondary-dore  hover:bg-secondary-dore hover:text-white'}`}
                 onClick={handleClickUpload}
-            >
-                Importer les images
-            </button>
-            <div className="flex flex-col justify-center items-center justify-center">
-                {files.map((file: File) => (
-                    <FilePreview
-                        key={file.name}
-                        file={file}
-                        handleRemoveFile={() => handleRemoveFile(file)}
-                    />
-                ))}
-            </div>
-        </div >
+                disabled={disabled}
+              >
+                  Importer les images
+              </button>
+              <button
+                className="btn-primary-light p-1 hover:text-white"
+                onClick={clearFiles}
+              >
+                  Annuler
+              </button>
+          </div>
+          <div className="flex flex-col justify-center items-center justify-center">
+              {files.map((file: File) => (
+                <FilePreview
+                  key={file.name}
+                  file={file}
+                  handleRemoveFile={() => handleRemoveFile(file)}
+                />
+              ))}
+          </div>
+      </div>
     )
 }

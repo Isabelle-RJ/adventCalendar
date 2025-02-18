@@ -40,6 +40,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         const token = localStorage.getItem('token')
         if (token) {
             setToken(token)
+            void checkAuth(token)
         }
         setAuthStatus(token ? "authenticated" : "unauthenticated")
     }, [])
@@ -142,6 +143,34 @@ export function AuthProvider({ children }: AuthProviderProps) {
             console.error(error)
         }
 
+    }
+    async function checkAuth(token: string) {
+        try {
+            const response = await fetch('http://localhost:9001/api/user', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Authorization': `Bearer ${token}`,
+                },
+                credentials: 'include',
+            })
+
+            const data = await response.json()
+
+            if (response.ok) {
+                setAuthStatus("authenticated")
+                setUser(data)
+                return
+            }
+
+            setAuthStatus("unauthenticated")
+            setUser(null)
+        }
+        catch (error) {
+            console.error(error)
+        }
     }
 
     return (
