@@ -37,7 +37,7 @@ export default function LayoutAdmin() {
                 </li>
                 <li>
                   <NavLink
-                    to="/profil"
+                    to="/profile"
                     className={({ isActive }) => isActive ? 'li-dashboard p-2 m-4 border rounded hover:border-secondary-dore border-secondary-dore hover:text-secondary-argent text-secondary-dore' : 'li-dashboard p-2 m-4 border border-transparent hover:border hover:border-secondary-dore hover:rounded text-secondary-argent hover:text-secondary-argent'}>
                     <PiIdentificationCardThin
                       className="icons-dashboard text-secondary-dore" /> Voir mon profil

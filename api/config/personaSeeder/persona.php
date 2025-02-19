@@ -45,13 +45,13 @@ return [
         [
             'id' => "9b07aa74-fd80-4fe7-bd61-70510da0100e",
             'theme_name' => 'Thème chat noël',
-            'image' => 'uploads/19-fond-argent.png',
+            'image' => 'uploads/torii.jpg',
             'user_id' => "8f8e45cc-b572-4218-bd01-913b47cca271",
         ],
         [
             'id' => "2396b8fb-6e60-466e-816b-63822590b731",
             'theme_name' => 'Thème sapin',
-            'image' => 'uploads/19-fond-argent.png',
+            'image' => 'uploads/montFujiSakura.jpg',
             'user_id' => "74583ecb-9a8e-4fc5-8510-90462c2b3729",
         ],
     ],
@@ -685,6 +685,24 @@ return [
             'calendar_id' => "bad5706e-c844-4448-a0c3-ad483de99186",
             'is_opened' => false,
             'opened_at' => null,
+        ],
+    ],
+    'profileData' => [
+        [
+            'user_id' => "c3c524af-01bb-4c69-a9db-ea5d68e26076",
+            'nb_shared_calendars' => 0,
+        ],
+        [
+            'user_id' => "8f8e45cc-b572-4218-bd01-913b47cca271",
+            'nb_shared_calendars' => 0,
+        ],
+        [
+            'user_id' => "9e80ee9e-e58a-49d3-ba81-fb16bd984b06",
+            'nb_shared_calendars' => 0,
+        ],
+        [
+            'user_id' => "74583ecb-9a8e-4fc5-8510-90462c2b3729",
+            'nb_shared_calendars' => 2,
         ],
     ],
 

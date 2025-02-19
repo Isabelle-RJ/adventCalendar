@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Calendar;
 use App\Models\ItemCase;
+use App\Models\ProfileData;
 use App\Models\Theme;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -20,6 +21,7 @@ class PersonaSeeder extends Seeder
         $this->themes($persona['themes']);
         $this->calendars($persona['calendars']);
         $this->itemsCases($persona['itemsCases']);
+        $this->profileData($persona['profileData']);
     }
 
     private function users(array $users): void
@@ -87,6 +89,19 @@ class PersonaSeeder extends Seeder
 
             ItemCase::factory()
                 ->create($newItemCase);
+        }
+    }
+    private function profileData(array $profileData): void
+    {
+        ProfileData::all()->each->delete();
+        foreach ($profileData as $profile) {
+            $newProfileData = [
+                'user_id' => $profile['user_id'],
+                'nb_shared_calendars' => $profile['nb_shared_calendars'],
+            ];
+
+            ProfileData::factory()
+                ->create($newProfileData);
         }
     }
 }

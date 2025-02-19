@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use App\Requests\RegisterFormRequest;
+use App\Models\ProfileData;
 
 
 class RegisterController extends Controller
@@ -21,6 +22,18 @@ class RegisterController extends Controller
 
         $user->save();
 
-        return response()->json($user);
+        $profileData = new ProfileData();
+        $profileData->user_id = $user->id;
+        $profileData->nb_calendars = 0;
+        $profileData->nb_shared_calendars = 0;
+
+        $profileData->save();
+
+        $user = [
+            ...$user->toArray(),
+            'profile_data' => $profileData,
+        ];
+
+        return response()->json(compact('user'));
     }
 }

@@ -8,6 +8,14 @@ interface User {
     name: string
     email: string
     role: string
+    profile_data: {
+        created_at: string
+        updated_at: string
+        id: string
+        nb_calendars: number
+        nb_shared_calendars: number
+        user_id: string
+    }
 }
 
 interface AuthContextType {
@@ -33,7 +41,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const [token, setToken] = useState<string | null>(null)
     const [authStatus, setAuthStatus] = useState<"pending" | "authenticated" | "unauthenticated">("pending")
     const navigate = useNavigate()
-    console.log(error)
 
     // Déclanche un nouveau rendu à chaque fois que le composant est monté ( = premier rendu, il va chercher le token dans le local storage)
     useEffect(() => {

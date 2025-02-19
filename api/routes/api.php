@@ -12,9 +12,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Theme\CreateThemeController;
 use App\Http\Controllers\File\UploadFilesController;
+use App\Models\ProfileData;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
+Route::get('/user', static function (Request $request) {
+    $user = $request->user();
+    $profileData = ProfileData::query()->where('user_id', $user->id)->first();
+
+    $user->profile_data = $profileData;
+
+    return $user;
 })->middleware('auth:sanctum');
 
 Route::middleware('auth:sanctum')->group(

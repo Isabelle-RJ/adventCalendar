@@ -13,6 +13,7 @@ import Contact from './pages/Contact.tsx'
 import { AuthProvider } from './store/AuthContext.tsx'
 import PrivateRoutes from './components/PrivateRoutes.tsx'
 import CreateCalendar from './pages/CreateCalendar.tsx'
+import Profile from './pages/Profile.tsx'
 
 const root = document.getElementById('root')
 
@@ -40,6 +41,8 @@ ReactDOM.createRoot(root!).render(
               element={<Dashboard />} />
             <Route path="/create-calendar"
               element={<CreateCalendar />} />
+            <Route path="/profile"
+              element={<Profile />} />
           </Route>
         </Route>
       </Routes>

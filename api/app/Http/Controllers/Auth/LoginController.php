@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\ProfileData;
 use App\Requests\LoginFormRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
@@ -20,14 +21,20 @@ class LoginController extends Controller
                 ]], 403);
             }
             $token = auth()->user()->createToken('token-name')->plainTextToken;
-            $user = Auth::user();
+            $authUser = Auth::user();
+            $profileData = ProfileData::query()->where('user_id', $authUser->id)->first();
+
+            $user = [
+                ...$authUser->toArray(),
+                'profile_data' => $profileData,
+            ];
 
             return response()->json(compact('token', 'user'));
         }
 
 
         return response()->json(['error' => [
-            "message" => "Vos identifiants ou mots de passe sont incorrects",
+            "message" => "Vos identifiants ou mot de passe sont incorrects",
             "status" => 401
         ]], 401);
     }
