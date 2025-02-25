@@ -15,9 +15,6 @@ class CreateThemeController extends Controller
     public function __invoke(CreateThemeFormRequest $request): JsonResponse
     {
         $authenticatedUser = auth()->user();
-        if ($authenticatedUser->role !== 'admin') {
-            return response()->json(['error' => 'Vous n\'avez pas les droits pour créer un thème.']);
-        }
 
         $theme = new Theme();
         $theme->theme_name = $request->theme_name;
@@ -30,6 +27,7 @@ class CreateThemeController extends Controller
         return response()->json(['message' => 'Votre thème à bien été créé.']);
     }
 
+    // Add uplaods/ directory to the theme name
     private function transformThemeName(string $themeName): string
     {
         $directory = self::UPLOADS_DIRECTORY;

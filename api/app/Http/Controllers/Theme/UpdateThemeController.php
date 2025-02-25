@@ -15,13 +15,9 @@ class UpdateThemeController extends Controller
 
     public function __invoke(UpdateThemesFormRequest $request): void
     {
-        $authUser = auth()->user();
+        $auth = auth()->user();
 
-        if ($authUser->role !== 'admin') {
-            throw new RuntimeException('Unauthorized', 401);
-        }
-
-        $theme = Theme::query()->where('slug', '=', $request->slug)->first();
+        $theme = Theme::query()->where('user_id', '=', $auth->id)->where('slug', '=', $request->slug)->first();
 
         if (!$theme) {
             throw new RuntimeException('Theme not found', 404);

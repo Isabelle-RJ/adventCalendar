@@ -12,11 +12,8 @@ class DeleteThemeController extends Controller
     public function __invoke(): void
     {
         $auth = auth()->user();
-        if ($auth->role !== 'admin') {
-            abort(403, 'Unauthorized');
-        }
 
-        $theme = Theme::query()->where('slug', '=', request()->slug)->first();
+        $theme = Theme::query()->where('user_id', '=', $auth->id)->where('slug', '=', request()->slug)->first();
 
         if ($theme === null) {
             throw new RuntimeException('Theme not found', 404);
