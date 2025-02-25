@@ -13,7 +13,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $user_id
  * @property string $theme_id
  * @property string $title
- * @property string $id_share
  */
 class Calendar extends Model
 {
@@ -21,7 +20,6 @@ class Calendar extends Model
 
     protected $fillable = [
         'title',
-        'id_share',
         'user_id',
         'theme_id',
     ];

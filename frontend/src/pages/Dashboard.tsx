@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
 import Calendar from '../components/Calendar.tsx'
 import { useAuth } from '../store/AuthContext.tsx'
+import ItemCase, { ItemCaseInterface } from '../components/ItemCase.tsx'
 
 interface Calendar {
   id: number,
   title: string,
   image: string,
-  itemsCases: string[],
+  itemsCases: ItemCaseInterface[],
   slug: string,
   isBlocked: boolean,
 }
@@ -14,7 +15,6 @@ interface Calendar {
 export default function Dashboard() {
   const [calendars, setCalendars] = useState<Calendar[]>([])
   const { token } = useAuth()
-  console.log(token)
 
   async function handleDelete(slug: string) {
     const response = await fetch(`http://localhost:9001/api/calendars/${slug}`, {
@@ -35,15 +35,14 @@ export default function Dashboard() {
       void fetchCalendars()
     }
   }
-
   async function fetchCalendars() {
     const response = await fetch('http://localhost:9001/api/calendars', {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
-      credentials: 'include',
-    }
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        credentials: 'include',
+      }
     )
     const data = await response.json()
     setCalendars(data.calendars.map((calendar: any) => ({
@@ -71,19 +70,31 @@ export default function Dashboard() {
         </h2>
       </div>
       {!calendars.length && <p className="text-center text-secondary-dore text-2xl">Aucun calendrier trouvé</p>}
-      <div className="bg-primary-trans-dark w-full rounded-md">
+      <div className="bg-primary-trans-dark py-6 px-32 w-full rounded-md">
         {calendars.map((calendar) => {
-          if (!calendar.isBlocked) {
-            return <Calendar
-              key={calendar.id}
-              title={calendar.title}
-              image={calendar.image}
-              itemsCases={calendar.itemsCases}
-              slug={calendar.slug}
-              onDelete={() => handleDelete(calendar.slug)}
-            />
-          }
-        },
+            if (!calendar.isBlocked) {
+              return <Calendar
+                key={calendar.id}
+                title={calendar.title}
+                image={calendar.image}
+                itemsCases={calendar.itemsCases}
+                slug={calendar.slug}
+                onDelete={() => handleDelete(calendar.slug)}
+                width='w-[420px]'
+              >
+                {calendar.itemsCases.map((itemCase) =>
+                  <ItemCase
+                    key={itemCase.id}
+                    id={itemCase.id}
+                    number={itemCase.number}
+                    gift={itemCase.gift}
+                    is_opened={itemCase.is_opened}
+                    opened_at={itemCase.opened_at}
+                  />
+                )}
+              </Calendar>
+            }
+          },
         )}
       </div>
     </>

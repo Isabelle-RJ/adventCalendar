@@ -2,7 +2,7 @@ import Modal from "./Modal"
 import Dropzone from './Dropzone.tsx'
 import { FormEvent, useState } from 'react'
 import { useAuth } from '../store/AuthContext.tsx'
-import { Theme } from '../pages/CreateCalendar.tsx'
+import { Theme } from '../pages/SelectedTheme.tsx'
 
 
 interface EditingThemeModalProps {
@@ -67,7 +67,6 @@ export default function EditingThemeModal(
 
     if (updateSuccess) {
       fetchThemes()
-      console.log('Theme updated')
       setIsEditing(false);
     }
   }

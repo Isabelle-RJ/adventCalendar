@@ -61,28 +61,24 @@ return [
             'user_id' => "c3c524af-01bb-4c69-a9db-ea5d68e26076",
             'theme_id' => "9b07aa74-fd80-4fe7-bd61-70510da0100e",
             'title' => 'Calendrier de Isa',
-            'id_share' => "lonk",
         ],
         [
             'id' => "1cacc551-8165-491e-9173-ee3758203dcd",
             'user_id' => "8f8e45cc-b572-4218-bd01-913b47cca271",
             'theme_id' => "9b07aa74-fd80-4fe7-bd61-70510da0100e",
             'title' => 'Calendrier de Coco',
-            'id_share' => "lunk",
         ],
         [
             'id' => "dc5820ce-cc15-46c0-a59b-b194d6f1d124",
             'user_id' => "9e80ee9e-e58a-49d3-ba81-fb16bd984b06",
             'theme_id' => "9b07aa74-fd80-4fe7-bd61-70510da0100e",
             'title' => 'Calendrier de Diego',
-            'id_share' => "lenk",
         ],
         [
             'id' => "bad5706e-c844-4448-a0c3-ad483de99186",
             'user_id' => "74583ecb-9a8e-4fc5-8510-90462c2b3729",
             'theme_id' => "9b07aa74-fd80-4fe7-bd61-70510da0100e",
             'title' => 'Calendrier de Jade',
-            'id_share' => "link",
         ],
     ],
     'itemsCases' => [

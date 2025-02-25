@@ -5,19 +5,20 @@ import FilePreview from './FilePreview'
 import Modal from './Modal'
 
 interface DropzoneProps {
-    isMultiple?: boolean
+    isMultiple?: boolean // => isMultiple: boolean | undefined  ; ? optional and : property type|value
     withModal?: boolean
     onFetch?: () => void
+    onUpload?: (themeName: string, image: string) => void // Function with parameters themeName type string and image type string who return void
 }
 
-export default function Dropzone({ isMultiple = true, withModal = false, onFetch }: DropzoneProps) {
+export default function Dropzone({ isMultiple = true, withModal = false, onFetch, onUpload }: DropzoneProps) {
     const [files, setFiles] = useState<File[]>([])
     const [loading, setLoading] = useState<boolean>(false)
     const [error, setError] = useState<string>('')
     const [success, setSuccess] = useState<string>('')
     const { token } = useAuth()
     const [open, setOpen] = useState<boolean>(false)
-    const disabled = loading || files.length === 0 || !!error
+    const disabled = loading || files.length === 0 || !!error // !! => convert|cast to boolean
 
     const dropzoneRef = useRef<HTMLDivElement>(null)
     const fileInputRef = useRef<HTMLInputElement>(null)
@@ -57,33 +58,6 @@ export default function Dropzone({ isMultiple = true, withModal = false, onFetch
         }
     }
 
-    async function uploadToDatabase(themeName: string, image: string) {
-        try {
-            const response = await fetch('http://localhost:9001/api/themes/create', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'Authorization': `Bearer ${token}`,
-                },
-                credentials: 'include',
-                body: JSON.stringify({
-                    theme_name: themeName,
-                    image: image,
-                }),
-            })
-
-            if (!response.ok) {
-                const data = await response.json()
-
-                throw new Error(data.error ?? data.message)
-            }
-        } catch (error: any) {
-            throw new Error(error.message)
-        }
-    }
-
     async function handleClickUpload() {
         setLoading(true)
 
@@ -97,16 +71,18 @@ export default function Dropzone({ isMultiple = true, withModal = false, onFetch
             setError(error.message)
             return
         }
+
         try {
-            await Promise.all(files.map(async (file) => (
-              await uploadToDatabase(file.name, file.name)
-            )))
+            if (onUpload) {
+                await Promise.all(files.map(async (file) => onUpload(file.name, file.name)))
+            }
         } catch (error: Error) {
             setError(error.message)
             return
         } finally {
             setSuccess('Images importées avec succès')
             clearFiles()
+
             if (onFetch) {
                 onFetch()
             }
@@ -258,7 +234,6 @@ export default function Dropzone({ isMultiple = true, withModal = false, onFetch
     return (
       <div
         className="flex flex-col p-4 items-center justify-center h-full w-full border-2 border-dashed border-secondary-dore text-secondary-dore"
-        onClick={() => { console.log('clicked') }}
         ref={dropzoneRef}
         onDragOver={handleDragover}
         onDragLeave={handleDragleave}

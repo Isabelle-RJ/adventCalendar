@@ -4,7 +4,6 @@ import { FaPencilAlt } from 'react-icons/fa'
 
 export default function Profile() {
   const { user } = useAuth()
-  console.log({ user })
   return (
     <div className="flex flex-col rounded-lg justify-center items-center bg-primary-trans-dark w-full h-full p-4">
       <form className="flex flex-col w-full">

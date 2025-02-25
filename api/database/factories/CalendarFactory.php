@@ -18,7 +18,6 @@ class CalendarFactory extends Factory
             'user_id' => User::all()->random()->id,
             'theme_id' => Theme::all()->random()->id,
             'title' => $this->faker->name(),
-            'id_share' => $this->faker->url(),
         ];
     }
 }

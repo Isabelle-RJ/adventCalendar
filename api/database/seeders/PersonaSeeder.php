@@ -65,7 +65,6 @@ class PersonaSeeder extends Seeder
                 'user_id' => $calendar['user_id'],
                 'theme_id' => $calendar['theme_id'],
                 'title' => $calendar['title'],
-                'id_share' => $calendar['id_share'],
                 'slug' => Str::slug($calendar['title']),
             ];
 

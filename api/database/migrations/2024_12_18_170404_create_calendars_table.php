@@ -16,7 +16,6 @@ return new class extends Migration
             $table->foreignUuid('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignUuid('theme_id')->nullable()->constrained('themes')->cascadeOnDelete();
             $table->string('title');
-            $table->string('id_share')->unique();
             $table->string('slug')->unique();
             $table->timestamps();
         });

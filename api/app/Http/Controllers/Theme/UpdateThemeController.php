@@ -5,12 +5,13 @@ namespace App\Http\Controllers\Theme;
 use App\Http\Controllers\Controller;
 use App\Models\Theme;
 use App\Requests\UpdateThemesFormRequest;
+use Illuminate\Support\Facades\Storage;
 use RuntimeException;
 use Illuminate\Support\Str;
 
 class UpdateThemeController extends Controller
 {
-    CONST UPLOADS_DIRECTORY = 'uploads';
+    private const UPLOADS_DIRECTORY = 'uploads';
 
     public function __invoke(UpdateThemesFormRequest $request): void
     {
@@ -26,9 +27,11 @@ class UpdateThemeController extends Controller
             throw new RuntimeException('Theme not found', 404);
         }
 
+        Storage::disk('public')->delete($theme->image);
+
         $theme->theme_name = $request->theme_name;
         $theme->image = $this->checkPath($request->image);
-        $theme->slug = Str::slug($request->theme_name);
+        $theme->slug = Str::slug(pathinfo($request->theme_name, PATHINFO_FILENAME));
 
         $theme->save();
     }
@@ -37,7 +40,7 @@ class UpdateThemeController extends Controller
     {
         $directory = self::UPLOADS_DIRECTORY;
 
-        if (str_contains($path, 'uploads/')) {
+        if (str_contains($path, '/uploads/')) {
             return $path;
         }
 
