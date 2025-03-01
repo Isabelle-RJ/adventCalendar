@@ -10,7 +10,8 @@ class IndexThemeController extends Controller
 {
     public function __invoke(): JsonResponse
     {
-        $themes = Theme::query()->orderByDesc('updated_at')->get();
+        $authUser = auth()->user();
+        $themes = Theme::query()->where('user_id', '=', $authUser->id)->orderByDesc('updated_at')->get();
 
         return response()->json(compact('themes'));
     }

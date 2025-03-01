@@ -8,7 +8,7 @@ export default function Header() {
 
   return (
     <nav className="bg-primary-x-dark">
-      <div className="flex flex-wrap items-center justify-between p-2 me-8 ms-8">
+      <div className="flex items-center justify-between p-2 me-8 ms-8">
         <NavLink
           to="/"
           className="flex items-center space-x-3 rtl:space-x-reverse">
@@ -18,7 +18,7 @@ export default function Header() {
           />
         </NavLink>
         {authStatus === 'authenticated' && user && (
-          <div className="pseudo li-nav-header text-secondary-dore">Bonjour {user.name} !</div>
+          <div className="pseudo xl:text-3xl xl:font-['Mochiy_Pop_One'] text-secondary-dore">Bonjour {user.name} !</div>
         )}
         <button data-collapse-toggle="navbar-default"
           type="button"

@@ -25,8 +25,10 @@ export default function SelectedTheme() {
     const [isVisible, setIsVisible] = useState<boolean>(false)
     const navigate = useNavigate()
     const dropdownRefs = useRef<{ [key: string]: HTMLDivElement | null }>({})
+    const [loading, setLoading] = useState<boolean>(false)
 
     async function fetchThemes() {
+        setLoading(true)
         try {
             const response = await fetch('http://localhost:9001/api/themes', {
                 method: 'GET',
@@ -41,6 +43,7 @@ export default function SelectedTheme() {
 
             const data = await response.json()
             setThemes(data.themes)
+            setLoading(false)
         } catch (error: any) {
             console.error(error.message)
         }
@@ -125,6 +128,10 @@ export default function SelectedTheme() {
         window.addEventListener('scroll', toggleVisibility)
         return () => window.removeEventListener('scroll', toggleVisibility)
     }, [])
+
+    if (loading) {
+        return <p className="text-center text-secondary-dore text-2xl bg-primary py-6 px-4 lg:px-32 w-full rounded-md">Chargement...</p>
+    }
 
     return (
       <>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Calendar;
 use App\Http\Controllers\Controller;
 use App\Models\Calendar;
 use App\Models\ItemCase;
+use App\Models\ProfileData;
 use App\Models\Theme;
 use App\Requests\CreateCalendarFormRequest;
 use Illuminate\Http\JsonResponse;
@@ -26,6 +27,13 @@ class CreateCalendarController extends Controller
             $calendar->slug = Str::slug($request->title);
 
             $calendar->save();
+
+            $profileData = ProfileData::query()->where('user_id', '=', $authUser->id)->first();
+            $count_calendars = Calendar::query()->where('user_id', '=', $authUser->id)->count();
+
+            $profileData->nb_calendars = $count_calendars;
+
+            $profileData->save();
 
             foreach ($request->items_case as $itemCase) {
                 $eloquentItemCase = new ItemCase();

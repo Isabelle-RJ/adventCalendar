@@ -52,6 +52,86 @@ h1 {
     }
 }
 
+/* Fonts */
+@font-face {
+    font-family: 'Mochiy Pop One';
+    src: url('../src/assets/fonts/MochiyPopOne-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Recoleta Alt';
+    src: url('../src/assets/fonts/RecoletaAlt-Thin.eot');
+    src: local('Recoleta Alt Thin'), local('../src/assets/fonts/RecoletaAlt-Thin'),
+    url('../src/assets/fonts/RecoletaAlt-Thin.eot?#iefix') format('embedded-opentype'),
+    url('../src/assets/fonts/RecoletaAlt-Thin.woff2') format('woff2'),
+    url('../src/assets/fonts/RecoletaAlt-Thin.woff') format('woff'),
+    url('../src/assets/fonts/RecoletaAlt-Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Recoleta Alt';
+    src: url('../src/assets/fonts/RecoletaAlt-Light.eot');
+    src: local('Recoleta Alt Light'), local('../src/assets/fonts/RecoletaAlt-Light'),
+    url('../src/assets/fonts/RecoletaAlt-Light.eot?#iefix') format('embedded-opentype'),
+    url('../src/assets/fonts/RecoletaAlt-Light.woff2') format('woff2'),
+    url('../src/assets/fonts/RecoletaAlt-Light.woff') format('woff'),
+    url('../src/assets/fonts/RecoletaAlt-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Recoleta Alt';
+    src: url('../src/assets/fonts/RecoletaAlt-Regular.eot');
+    src: local('Recoleta Alt Regular'), local('../src/assets/fonts/RecoletaAlt-Regular'),
+    url('../src/assets/fonts/RecoletaAlt-Regular.eot?#iefix') format('embedded-opentype'),
+    url('../src/assets/fonts/RecoletaAlt-Regular.woff2') format('woff2'),
+    url('../src/assets/fonts/RecoletaAlt-Regular.woff') format('woff'),
+    url('../src/assets/fonts/RecoletaAlt-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Recoleta Alt';
+    src: url('../src/assets/fonts/RecoletaAlt-Medium.eot');
+    src: local('Recoleta Alt Medium'), local('../src/assets/fonts/RecoletaAlt-Medium'),
+    url('../src/assets/fonts/RecoletaAlt-Medium.eot?#iefix') format('embedded-opentype'),
+    url('../src/assets/fonts/RecoletaAlt-Medium.woff2') format('woff2'),
+    url('../src/assets/fonts/RecoletaAlt-Medium.woff') format('woff'),
+    url('../src/assets/fonts/RecoletaAlt-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Recoleta Alt';
+    src: url('../src/assets/fonts/RecoletaAlt-SemiBold.eot');
+    src: local('Recoleta Alt SemiBold'), local('../src/assets/fonts/RecoletaAlt-SemiBold'),
+    url('../src/assets/fonts/RecoletaAlt-SemiBold.eot?#iefix') format('embedded-opentype'),
+    url('../src/assets/fonts/RecoletaAlt-SemiBold.woff2') format('woff2'),
+    url('../src/assets/fonts/RecoletaAlt-SemiBold.woff') format('woff'),
+    url('../src/assets/fonts/RecoletaAlt-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Recoleta Alt';
+    src: url('../src/assets/fonts/RecoletaAlt-Bold.eot');
+    src: local('Recoleta Alt Bold'), local('../src/assets/fonts/RecoletaAlt-Bold'),
+    url('../src/assets/fonts/RecoletaAlt-Bold.eot?#iefix') format('embedded-opentype'),
+    url('../src/assets/fonts/RecoletaAlt-Bold.woff2') format('woff2'),
+    url('../src/assets/fonts/RecoletaAlt-Bold.woff') format('woff'),
+    url('../src/assets/fonts/RecoletaAlt-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
 /* Pages  */
 @layer base {
     body {
@@ -99,6 +179,10 @@ h1 {
     text-decoration: none;
     font-size: 2em;
     font-family: Mochiy Pop One;
+}
+.pseudo {
+    font-family: "Recoleta Alt";
+    font-size: 1em;
 }
 
 .text-form-log,

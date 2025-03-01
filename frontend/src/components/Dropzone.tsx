@@ -51,6 +51,10 @@ export default function Dropzone({ isMultiple = true, withModal = false, onFetch
 
                 throw new Error(data.error ?? data.message)
             }
+
+            const data = await response.json()
+
+            return data.path
         } catch (error: any) {
             throw new Error(error.message)
         } finally {
@@ -61,35 +65,23 @@ export default function Dropzone({ isMultiple = true, withModal = false, onFetch
     async function handleClickUpload() {
         setLoading(true)
 
-        const uploadFilesPromised = files.map(async (file) => (
-          await uploadFilesLaravelLocalStorage(file)
-        ))
-
         try {
-            await Promise.all(uploadFilesPromised)
-        } catch (error: Error) {
-            setError(error.message)
-            return
-        }
+            const uploadedPaths: string[] = await Promise.all(files.map(uploadFilesLaravelLocalStorage)) as string[]
 
-        try {
             if (onUpload) {
-                await Promise.all(files.map(async (file) => onUpload(file.name, file.name)))
+                await Promise.all(
+                  uploadedPaths.map((path) => onUpload(path, path))
+                )
             }
-        } catch (error: Error) {
-            setError(error.message)
-            return
-        } finally {
+
             setSuccess('Images importées avec succès')
             clearFiles()
-
-            if (onFetch) {
-                onFetch()
-            }
+            onFetch?.()
+        } catch (error: any) {
+            setError(error.message)
+        } finally {
             setLoading(false)
-            if (withModal) {
-                setOpen(false)
-            }
+            if (withModal) setOpen(false)
         }
     }
 
@@ -124,8 +116,8 @@ export default function Dropzone({ isMultiple = true, withModal = false, onFetch
                 return
             }
 
-            if (newFiles[i].size > 2 * 1024 * 1024) {
-                setError('Le fichier dépasse 2MB')
+            if (newFiles[i].size > 1024 * 1024) {
+                setError('Le fichier dépasse 1MB')
                 return
             }
 
@@ -147,8 +139,8 @@ export default function Dropzone({ isMultiple = true, withModal = false, onFetch
                 return
             }
 
-            if (newFiles[i].size > 2 * 1024 * 1024) {
-                setError('Le fichier dépasse 2MB')
+            if (newFiles[i].size > 1024 * 1024) {
+                setError('Le fichier dépasse 1MB')
                 return
             }
 

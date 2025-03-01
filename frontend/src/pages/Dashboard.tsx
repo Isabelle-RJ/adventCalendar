@@ -14,9 +14,12 @@ interface Calendar {
 
 export default function Dashboard() {
   const [calendars, setCalendars] = useState<Calendar[]>([])
-  const { token } = useAuth()
+  const { token, checkAuth } = useAuth()
+  const [loading, setLoading] = useState<boolean>(false)
+  const [deleteLoading, setDeleteLoading] = useState<boolean>(false)
 
   async function handleDelete(slug: string) {
+    setDeleteLoading(true)
     const response = await fetch(`http://localhost:9001/api/calendars/${slug}`, {
       method: 'DELETE',
       headers: {
@@ -32,10 +35,14 @@ export default function Dashboard() {
     })
 
     if (response.ok) {
+      checkAuth(token as string)
+      setDeleteLoading(false)
       void fetchCalendars()
     }
   }
+
   async function fetchCalendars() {
+    setLoading(true)
     const response = await fetch('http://localhost:9001/api/calendars', {
         headers: {
           'Content-Type': 'application/json',
@@ -53,6 +60,7 @@ export default function Dashboard() {
       slug: calendar.slug,
       isBlocked: calendar.user.is_blocked,
     })))
+    setLoading(false)
   }
 
   {/* Détermine s'il y a des changements dans mon application en fonction d'une dépendance */ }
@@ -62,6 +70,10 @@ export default function Dashboard() {
     }
   }, [token])
 
+  if (loading) {
+    return <p className="text-center text-secondary-dore text-2xl bg-primary py-6 px-4 lg:px-32 w-full rounded-md">Chargement...</p>
+  }
+
   return (
     <>
       <div className='w-full mb-4'>
@@ -69,8 +81,8 @@ export default function Dashboard() {
           Tous mes calendriers
         </h2>
       </div>
-      {!calendars.length && <p className="text-center text-secondary-dore text-2xl">Aucun calendrier trouvé</p>}
-      <div className="bg-primary-trans-dark py-6 px-32 w-full rounded-md">
+      {!loading && !calendars.length && <p className="text-center text-secondary-dore text-2xl bg-primary-trans-dark py-6 px-4 lg:px-32 w-full rounded-md">Aucun calendrier trouvé</p>}
+      <div className="grid lg:grid-cols-2 xl:grid-cols-3 place-items-center gap-2 xl:gap-8 bg-primary-trans-dark py-6 px-4 lg:px-32 w-full rounded-md">
         {calendars.map((calendar) => {
             if (!calendar.isBlocked) {
               return <Calendar
@@ -80,7 +92,8 @@ export default function Dashboard() {
                 itemsCases={calendar.itemsCases}
                 slug={calendar.slug}
                 onDelete={() => handleDelete(calendar.slug)}
-                width='w-[420px]'
+                onDeleteLoading={deleteLoading}
+                width='w-full'
               >
                 {calendar.itemsCases.map((itemCase) =>
                   <ItemCase

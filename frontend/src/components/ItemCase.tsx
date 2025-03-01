@@ -33,7 +33,7 @@ export default function ItemCase({ id, number, gift, is_opened, opened_at }: Ite
       >
         <svg width={`${number === 25 ? '52' : '32'}`} height={`${number === 25 ? '52' : '32'}`} viewBox="0 0 142 142"
              fill="none" xmlns="http://www.w3.org/2000/svg">
-          <g clip-path="url(#clip0_2482_3123)">
+          <g clipPath="url(#clip0_2482_3123)">
             <mask id="mask0_2482_3123" style={{ maskType: 'luminance' }} maskUnits="userSpaceOnUse" x="13" y="26"
                   width="116" height="116">
               <path d="M13.5551 26.5067H128.575V142H13.5551V26.5067Z" fill="white"/>

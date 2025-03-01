@@ -27,6 +27,7 @@ interface AuthContextType {
     login: (email: string, password: string) => void
     register: (name: string, email: string, password: string) => void
     logout: () => void
+    checkAuth: (token: string) => void
 }
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -151,6 +152,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         }
 
     }
+
     async function checkAuth(token: string) {
         try {
             const response = await fetch('http://localhost:9001/api/user', {
@@ -181,9 +183,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
 
     return (
-        <AuthContext.Provider value={{ user, error, token, authStatus, setToken, login, register, logout }}>
-            {children}
-        </AuthContext.Provider>
+      <AuthContext.Provider value={{ user, error, token, authStatus, setToken, login, register, logout, checkAuth }}>
+          {children}
+      </AuthContext.Provider>
     )
 }
 
