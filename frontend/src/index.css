@@ -3,70 +3,257 @@
 @tailwind utilities;
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+    font-family: Recoleta Alt, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+    color-scheme: light dark;
+    color: rgba(255, 255, 255, 0.87);
+    background-color: #242424;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
+
 a:hover {
-  color: #535bf2;
+    color: #121221;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+    margin: 0;
+    display: flex;
+    place-items: start center;
+    min-width: 320px;
+    min-height: 100vh;
 }
 
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+    font-size: 3.2rem;
+    line-height: 1.1;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
 
 @media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+    :root {
+        color: #213547;
+        background-color: #ffffff;
+    }
+
+    a:hover {
+        color: #121221;
+    }
+
+    button {
+        background-color: transparent;
+        color: #B8A65D;
+    }
+}
+
+/* Fonts */
+@font-face {
+    font-family: 'Mochiy Pop One';
+    src: url('../src/assets/fonts/MochiyPopOne-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Recoleta Alt';
+    src: url('../src/assets/fonts/RecoletaAlt-Thin.eot');
+    src: local('Recoleta Alt Thin'), local('../src/assets/fonts/RecoletaAlt-Thin'),
+    url('../src/assets/fonts/RecoletaAlt-Thin.eot?#iefix') format('embedded-opentype'),
+    url('../src/assets/fonts/RecoletaAlt-Thin.woff2') format('woff2'),
+    url('../src/assets/fonts/RecoletaAlt-Thin.woff') format('woff'),
+    url('../src/assets/fonts/RecoletaAlt-Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Recoleta Alt';
+    src: url('../src/assets/fonts/RecoletaAlt-Light.eot');
+    src: local('Recoleta Alt Light'), local('../src/assets/fonts/RecoletaAlt-Light'),
+    url('../src/assets/fonts/RecoletaAlt-Light.eot?#iefix') format('embedded-opentype'),
+    url('../src/assets/fonts/RecoletaAlt-Light.woff2') format('woff2'),
+    url('../src/assets/fonts/RecoletaAlt-Light.woff') format('woff'),
+    url('../src/assets/fonts/RecoletaAlt-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Recoleta Alt';
+    src: url('../src/assets/fonts/RecoletaAlt-Regular.eot');
+    src: local('Recoleta Alt Regular'), local('../src/assets/fonts/RecoletaAlt-Regular'),
+    url('../src/assets/fonts/RecoletaAlt-Regular.eot?#iefix') format('embedded-opentype'),
+    url('../src/assets/fonts/RecoletaAlt-Regular.woff2') format('woff2'),
+    url('../src/assets/fonts/RecoletaAlt-Regular.woff') format('woff'),
+    url('../src/assets/fonts/RecoletaAlt-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Recoleta Alt';
+    src: url('../src/assets/fonts/RecoletaAlt-Medium.eot');
+    src: local('Recoleta Alt Medium'), local('../src/assets/fonts/RecoletaAlt-Medium'),
+    url('../src/assets/fonts/RecoletaAlt-Medium.eot?#iefix') format('embedded-opentype'),
+    url('../src/assets/fonts/RecoletaAlt-Medium.woff2') format('woff2'),
+    url('../src/assets/fonts/RecoletaAlt-Medium.woff') format('woff'),
+    url('../src/assets/fonts/RecoletaAlt-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Recoleta Alt';
+    src: url('../src/assets/fonts/RecoletaAlt-SemiBold.eot');
+    src: local('Recoleta Alt SemiBold'), local('../src/assets/fonts/RecoletaAlt-SemiBold'),
+    url('../src/assets/fonts/RecoletaAlt-SemiBold.eot?#iefix') format('embedded-opentype'),
+    url('../src/assets/fonts/RecoletaAlt-SemiBold.woff2') format('woff2'),
+    url('../src/assets/fonts/RecoletaAlt-SemiBold.woff') format('woff'),
+    url('../src/assets/fonts/RecoletaAlt-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Recoleta Alt';
+    src: url('../src/assets/fonts/RecoletaAlt-Bold.eot');
+    src: local('Recoleta Alt Bold'), local('../src/assets/fonts/RecoletaAlt-Bold'),
+    url('../src/assets/fonts/RecoletaAlt-Bold.eot?#iefix') format('embedded-opentype'),
+    url('../src/assets/fonts/RecoletaAlt-Bold.woff2') format('woff2'),
+    url('../src/assets/fonts/RecoletaAlt-Bold.woff') format('woff'),
+    url('../src/assets/fonts/RecoletaAlt-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+/* Pages  */
+@layer base {
+    body {
+        font-family: 'Recoleta Alt', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+        line-height: 1.5;
+        font-weight: 400;
+        color: rgba(255, 255, 255, 0.87);
+        background-color: #242424;
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    a {
+        font-weight: 500;
+        color: #B8A65D;
+        text-decoration: inherit;
+    }
+
+    a:hover {
+        color: #121221;
+    }
+
+    h1 {
+        font-size: 3rem;
+        line-height: 1.1;
+        font-family: Mochiy Pop One;
+    }
+}
+
+.title-login {
+    font-family: Mochiy Pop One;
+}
+
+.icon-stars {
+    display: inline;
+}
+
+.logo-osez-noel {
+    width: 120px;
+}
+
+.li-nav-header {
+    text-decoration: none;
+    font-size: 2em;
+    font-family: Mochiy Pop One;
+}
+.pseudo {
+    font-family: "Recoleta Alt";
+    font-size: 1em;
+}
+
+.text-form-log,
+.btn-form-log,
+.btn-form-submit {
+    font-size: 1.5em;
+}
+
+.btn-form-submit {
+    border: 1px solid #B8A65D;
+    padding: 0.2rem 0.7rem;
+    justify-content: center;
+}
+
+.btn-burger {
+    border: none;
+}
+
+.icon-burger {
+    font-size: 4em;
+    color: #B8A65D;
+}
+
+.nav-footer {
+    font-size: 1.5em;
+}
+
+.title-dashboard {
+    font-family: "Mochiy Pop One";
+}
+
+.icons-dashboard {
+    display: inline;
+    flex-direction: row;
+    width: 40px;
+    height: 40px;
+}
+
+.div-my-account {
+    display: flex;
+    align-items: center;
+}
+
+.under-title {
+    font-family: "Mochiy Pop One";
+}
+
+.calendar-option {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.name-calendar-present {
+    font-family: "Mochiy Pop One";
+    font-size: x-large;
+}
+
+.title-home{
+    font-family: "Mochiy Pop One";
+    font-size: 2rem;
+}
+
+.title-mentions{
+    font-family: "Mochiy Pop One";
+    padding: 1rem;
+    margin: 1rem;
+}
+
+.title-cgu{
+    font-family: "Mochiy Pop One";
+    padding: 1rem;
+    margin: 1rem;
 }
