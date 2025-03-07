@@ -1,4 +1,5 @@
 import { ReactNode, useEffect, useRef } from 'react'
+import { IoClose } from "react-icons/io5"
 
 interface ModalProps {
   open: boolean
@@ -81,7 +82,7 @@ export default function Modal(
               className="btn-close absolute top-4 right-4 text-primary-blue focus:ring-1 focus:ring-white"
               onClick={ () => setOpen(false) }
             >
-              X
+              <IoClose/>
             </button>
             { children }
           </div>

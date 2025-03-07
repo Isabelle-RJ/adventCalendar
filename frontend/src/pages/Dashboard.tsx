@@ -4,7 +4,7 @@ import { useAuth } from '../store/AuthContext.tsx'
 import ItemCase, { ItemCaseInterface } from '../components/ItemCase.tsx'
 
 interface Calendar {
-  id: number,
+  id: string,
   title: string,
   image: string,
   itemsCases: ItemCaseInterface[],
@@ -91,6 +91,7 @@ export default function Dashboard() {
                 image={calendar.image}
                 itemsCases={calendar.itemsCases}
                 slug={calendar.slug}
+                id={calendar.id}
                 onDelete={() => handleDelete(calendar.slug)}
                 onDeleteLoading={deleteLoading}
                 width='w-full'
