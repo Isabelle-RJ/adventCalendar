@@ -1,17 +1,17 @@
-import { Link } from 'react-router'
+import { Link, useLocation } from 'react-router'
 import { MdOutlineEditCalendar } from 'react-icons/md'
 import { RiDeleteBin6Fill } from 'react-icons/ri'
-import { ItemCaseInterface } from './ItemCase'
 import { ReactNode, useState } from 'react'
 import { BsFillShareFill } from 'react-icons/bs'
 import Modal from './Modal.tsx'
 import { useAuth } from '../store/AuthContext.tsx'
+import { IoCopy } from 'react-icons/io5'
+import { FcOk } from 'react-icons/fc'
 
 
 export interface CalendarProps {
   title?: string,
   image: string,
-  itemsCases: ItemCaseInterface[],
   slug?: string,
   id?: string,
   onDelete?: (slug: string) => void,
@@ -25,6 +25,7 @@ export interface CalendarProps {
 }
 
 function btnContainer(
+  authStatus: string,
   slug: string | undefined,
   id: string | undefined,
   onDelete: ((slug: string) => void) | undefined,
@@ -33,7 +34,7 @@ function btnContainer(
   onShare: ((id: string) => void) | undefined,
   onShareLoading: boolean | undefined,
 ) {
-  if (slug) {
+  if (slug && authStatus === 'authenticated') {
     return (
       <div className="div-options flex flex-row">
         <Link to={`/calendar/update/${slug}`}> {/* string templating : slug = calendrier-de-prenom */}
@@ -72,11 +73,13 @@ export default function Calendar(
   const [isSharing, setIsSharing] = useState<boolean>(false)
   const [sharedLink, setSharedLink] = useState<string>('')
   const [shareLoading, setShareLoading] = useState<boolean>(false)
-  const { token } = useAuth()
+  const { token, authStatus } = useAuth()
   const [isCopied, setIsCopied] = useState<boolean>(false)
+  const path = useLocation()
+  console.log(path.pathname.includes("/calendar"));
+// TODO : vérifier l'url pour afficher ou pas les boutons d'édition et de suppression
 
   async function handleShare(id: string) {
-    console.log(id)
     setShareLoading(true)
     setIsSharing(true)
     try {
@@ -97,7 +100,8 @@ export default function Calendar(
       }
 
       const data = await response.json()
-      setSharedLink(data.url)
+      const url = `http://localhost:5173/calendar/${data.id}?signature=${data.signature}`
+      setSharedLink(url)
     } catch (error: any) {
       console.error(error.message)
     } finally {
@@ -108,22 +112,39 @@ export default function Calendar(
   const handleCopy = async () => {
     await navigator.clipboard.writeText(sharedLink)
     setIsCopied(true)
-    setTimeout(()=> setIsCopied(false), 1000)
-  };
+    setTimeout(() => setIsCopied(false), 1000)
+  }
 
   return (
     <>
-      <Modal open={isSharing} setOpen={setIsSharing} width='w-full lg:w-1/2' height='h-96'>
+      <Modal open={isSharing}
+             setOpen={setIsSharing}
+             width="w-full lg:w-1/2"
+             height="h-96">
+        <input className="text-primary-dark w-full"
+               type="text"
+               readOnly
+               value={sharedLink}/>
         <div>
-          <button onClick={handleCopy} className="btn-copy text-primary-dark">Copier le lien</button>
-          {isCopied && <span className="text-primary-dark">Copié !</span>}
+          <button onClick={handleCopy}
+                  className="btn-copy text-primary-dark"><IoCopy/></button>
+          {isCopied && <span className="text-primary-dark font-bold"><FcOk/></span>}
         </div>
-        <input className="text-primary-dark w-full" type="text" readOnly value={sharedLink}/>
+
       </Modal>
       <div className={`div-calendar-grid text-secondary-argent text-3xl text-center ${width} ${height}`}>
         <div className="calendar-option flex items-center">
           <span className="name-calendar-present">{title}</span>
-          {btnContainer(slug, id, onDelete, onDeleteLoading, onUpdate, handleShare, shareLoading )}
+          {btnContainer(
+            authStatus,
+            slug,
+            id,
+            onDelete,
+            onDeleteLoading,
+            onUpdate,
+            handleShare,
+            shareLoading)
+          }
         </div>
         <div
           className="container mx-auto w-full flex flex-wrap justify-center items-center bg-no-repeat bg-cover gap-6 p-4 lg:px-4 xl:px-4"

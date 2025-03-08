@@ -7,6 +7,7 @@ use App\Http\Controllers\Calendar\CreateCalendarController;
 use App\Http\Controllers\Calendar\DeleteCalendarController;
 use App\Http\Controllers\Calendar\IndexCalendarController;
 use App\Http\Controllers\Calendar\ShareCalendarController;
+use App\Http\Controllers\Calendar\ShowCalendarController;
 use App\Http\Controllers\Calendar\ShowShareCalendarController;
 use App\Http\Controllers\Theme\DeleteThemeController;
 use App\Http\Controllers\Theme\IndexThemeController;
@@ -61,7 +62,7 @@ Route::middleware('auth:sanctum')->group(
         Route::get('/themes', IndexThemeController::class);
         // Route qui permet de récupérer le lien de partage d'un calendrier pour la modal.
         Route::get('/share-calendar/{id}', ShareCalendarController::class);
-        Route::get('/calendar/{id}', ShareCalendarController::class);
+        Route::get('/calendars/{id}', ShowCalendarController::class)->whereUuid('id');
     }
 );
 

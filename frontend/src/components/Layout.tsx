@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom'
 import Header from './Header.tsx'
 import Footer from './Footer.tsx'
 import Image from '../assets/background17.png'
+import BottomNavigation from './BottomNavigation.tsx'
 
 export default function Layout() {
   return (
@@ -11,6 +12,7 @@ export default function Layout() {
             style={{ backgroundImage: `url(${Image})` }}>
         <Outlet/>
       </main>
+      <BottomNavigation />
       <Footer/>
     </div>
   )

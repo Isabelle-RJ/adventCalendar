@@ -17,11 +17,6 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-
-a:hover {
-    color: #121221;
-}
-
 body {
     margin: 0;
     display: flex;
@@ -35,15 +30,10 @@ h1 {
     line-height: 1.1;
 }
 
-
 @media (prefers-color-scheme: light) {
     :root {
         color: #213547;
         background-color: #ffffff;
-    }
-
-    a:hover {
-        color: #121221;
     }
 
     button {
@@ -150,10 +140,6 @@ h1 {
         font-weight: 500;
         color: #B8A65D;
         text-decoration: inherit;
-    }
-
-    a:hover {
-        color: #121221;
     }
 
     h1 {
