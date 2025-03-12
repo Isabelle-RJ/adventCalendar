@@ -3,14 +3,14 @@ server {
     listen [::]:80;
     server_name ${API_SERVER_NAME};
     if ($host = api-oseznoel.isabellejurain.fr) {
-        return 301 https://$host:8443$request_uri;
+        return 301 https://$host$request_uri;
     }
     return 404;
 }
 
 server {
-    listen 8443 ssl;
-    listen [::]:8443 ssl;
+    listen 443 ssl;
+    listen [::]:443 ssl;
     server_name ${API_SERVER_NAME};
 
     ssl_certificate /etc/letsencrypt/live/${API_SERVER_NAME}/fullchain.pem;
