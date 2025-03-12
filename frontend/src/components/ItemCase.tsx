@@ -35,7 +35,7 @@ export default function ItemCase({ id, number, gift, is_opened, opened_at }: Ite
         <p className="text-xl text-primary-blue">{gift}</p>
       </Modal>
       <div
-        className={`${number === 25 ? 'w-[60px] h-[60px]' : 'w-[40px] h-[40px]'} relative cursor-pointer bg-primary-trans-dark p-1 flex justify-center items-center rounded-lg shadow-lg relative ${open ? 'pointer-events-none' : 'pointer-events-auto'
+        className={`${number === 25 ? 'lg:w-[80px] lg:h-[80px] w-[52px] h-[52px]' : 'lg:w-[60px] lg:h-[60px] w-[42px] h-[42px]'} relative ${today.day < number ? "cursor-not-allowed" : "cursor-pointer"}  bg-primary-trans-dark p-1 flex justify-center items-center rounded-lg shadow-lg relative ${open ? 'pointer-events-none' : 'pointer-events-auto'
         }`}
         onClick={() => today.day >= number ? setOpen(true) : null}
       >
@@ -47,7 +47,7 @@ export default function ItemCase({ id, number, gift, is_opened, opened_at }: Ite
               <GiftDisable number={number}/>
             )}
         <h1
-          className="absolute text-sm justify-center items-center text-4xl font-bold text-primary-dark">
+          className="absolute text-sm justify-center items-center xl:text-2xl font-bold text-primary-dark">
           {number}
         </h1>
       </div>

@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router'
+import { Link } from 'react-router'
 import { MdOutlineEditCalendar } from 'react-icons/md'
 import { RiDeleteBin6Fill } from 'react-icons/ri'
 import { ReactNode, useState } from 'react'
@@ -22,6 +22,7 @@ export interface CalendarProps {
   children?: ReactNode
   width?: string,
   height?: string,
+  withOptions?: boolean,
 }
 
 function btnContainer(
@@ -34,27 +35,25 @@ function btnContainer(
   onShare: ((id: string) => void) | undefined,
   onShareLoading: boolean | undefined,
 ) {
-  if (slug && authStatus === 'authenticated') {
-    return (
-      <div className="div-options flex flex-row">
-        <Link to={`/calendar/update/${slug}`}> {/* string templating : slug = calendrier-de-prenom */}
-          <MdOutlineEditCalendar className="icons-calendar text-secondary-argent hover:text-primary-blue"/>
-        </Link>
-        <button onClick={() => onDelete ? onDelete(slug) : null}
-                disabled={onDeleteLoading}
-                className={onDeleteLoading ? 'cursor-not-allowed' : 'cursor-pointer'}
-        >
-          <RiDeleteBin6Fill className="icons-calendar text-secondary-argent hover:text-primary-blue"/>
-        </button>
-        <button onClick={() => onShare ? onShare(id as string) : null}
-                disabled={onShareLoading}
-                className={onShareLoading ? 'cursor-not-allowed' : 'cursor-pointer'}
-        >
-          <BsFillShareFill className="icons-calendar text-secondary-argent hover:text-primary-blue"/>
-        </button>
-      </div>
-    )
-  }
+  return (
+    <div className="div-options flex flex-row">
+      <Link to={`/calendar/update/${slug}`}> {/* string templating : slug = calendrier-de-prenom */}
+        <MdOutlineEditCalendar className="icons-calendar text-secondary-argent hover:text-primary-blue"/>
+      </Link>
+      <button onClick={() => onDelete ? onDelete(slug as string) : null}
+              disabled={onDeleteLoading}
+              className={onDeleteLoading ? 'cursor-not-allowed' : 'cursor-pointer'}
+      >
+        <RiDeleteBin6Fill className="icons-calendar text-secondary-argent hover:text-primary-blue"/>
+      </button>
+      <button onClick={() => onShare ? onShare(id as string) : null}
+              disabled={onShareLoading}
+              className={onShareLoading ? 'cursor-not-allowed' : 'cursor-pointer'}
+      >
+        <BsFillShareFill className="icons-calendar text-secondary-argent hover:text-primary-blue"/>
+      </button>
+    </div>
+  )
 }
 
 export default function Calendar(
@@ -69,15 +68,13 @@ export default function Calendar(
     children,
     height = 'h-full',
     width = 'w-full',
+    withOptions = false,
   }: CalendarProps) {
   const [isSharing, setIsSharing] = useState<boolean>(false)
   const [sharedLink, setSharedLink] = useState<string>('')
   const [shareLoading, setShareLoading] = useState<boolean>(false)
-  const { token, authStatus } = useAuth()
+  const { token, authStatus, checkAuth } = useAuth()
   const [isCopied, setIsCopied] = useState<boolean>(false)
-  const path = useLocation()
-  console.log(path.pathname.includes("/calendar"));
-// TODO : vérifier l'url pour afficher ou pas les boutons d'édition et de suppression
 
   async function handleShare(id: string) {
     setShareLoading(true)
@@ -102,6 +99,7 @@ export default function Calendar(
       const data = await response.json()
       const url = `http://localhost:5173/calendar/${data.id}?signature=${data.signature}`
       setSharedLink(url)
+      checkAuth(token as string)
     } catch (error: any) {
       console.error(error.message)
     } finally {
@@ -130,12 +128,12 @@ export default function Calendar(
                   className="btn-copy text-primary-dark"><IoCopy/></button>
           {isCopied && <span className="text-primary-dark font-bold"><FcOk/></span>}
         </div>
-
       </Modal>
+
       <div className={`div-calendar-grid text-secondary-argent text-3xl text-center ${width} ${height}`}>
         <div className="calendar-option flex items-center">
           <span className="name-calendar-present">{title}</span>
-          {btnContainer(
+          {withOptions && btnContainer(
             authStatus,
             slug,
             id,
@@ -147,7 +145,7 @@ export default function Calendar(
           }
         </div>
         <div
-          className="container mx-auto w-full flex flex-wrap justify-center items-center bg-no-repeat bg-cover gap-6 p-4 lg:px-4 xl:px-4"
+          className="container xl:h-[50vh] mx-auto w-full flex flex-wrap justify-center items-center bg-no-repeat bg-cover gap-6 p-4 lg:px-4 xl:px-4"
           style={{ backgroundImage: `url(http://localhost:9001/public?path=${image})` }}
         >
           {children}

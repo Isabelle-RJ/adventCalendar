@@ -12,12 +12,12 @@ export default function LayoutAdmin() {
       <Header />
       <main className="div-main-login w-full flex-grow flex flex-col bg-cover bg-center mb-10 lg:mb-0"
         style={{ backgroundImage: `url(${Image})` }}>
-        <div className='w-full p-8 flex flex-col items-center'>
+        <div className='w-full p-2 flex flex-col items-center'>
           <div className="hidden lg:div-my-account w-full lg:flex lg:flex-col lg:flex-wrap rounded-md px-4 py-6 m-4 bg-primary-trans-dark">
             <div className="title-dashboard">
               <h1 className="text-xl text-center text-secondary-ivory">Mon tableau de bord</h1>
             </div>
-            <div className="links-dashboard flex flex-row justify-center p-6">
+            <div className="links-dashboard flex flex-row justify-center p-4">
               <ul className="flex md:flex-row">
                 <li>
                   <NavLink

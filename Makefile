@@ -1,10 +1,10 @@
 DOCKER_COMPOSE = docker-compose
-PHP_CONTAINER = app
-NGINX_CONTAINER = nginx-server
-FRONT_END_CONTAINER = bun
+PHP_CONTAINER = advent_app
+NGINX_CONTAINER = advent_nginx_server
+FRONT_END_CONTAINER = advent_node
 ARTISAN = $(DOCKER_COMPOSE) exec $(PHP_CONTAINER) php artisan
 COMPOSER = $(DOCKER_COMPOSE) exec $(PHP_CONTAINER) composer
-BUN = $(DOCKER_COMPOSE) exec $(FRONT_END_CONTAINER) bun
+PNPM = $(DOCKER_COMPOSE) exec $(FRONT_END_CONTAINER) advent_node
 CURRENT_UID := $(shell id -u)
 CURRENT_GID := $(shell id -g)
 
@@ -37,7 +37,7 @@ init-api:
 
 init-client:
 	@echo "Création du projet Next..."
-	$(DOCKER_COMPOSE) exec $(FRONT_END_CONTAINER) bun create vite@latest . --template react-ts
+	$(DOCKER_COMPOSE) exec $(FRONT_END_CONTAINER) pnpm create vite@latest . --template react-ts
 	make perm
 
 api:
@@ -50,7 +50,7 @@ api:
 
 client:
 	@echo "🎯 Initialisation du projet React..."
-	$(DOCKER_COMPOSE) exec -d bun sh -c "bun install && bun dev"
+	$(DOCKER_COMPOSE) exec -d $(FRONT_END_CONTAINER) sh -c "pnpm install && pnpm dev"
 
 keygen:
 	@echo "🔑 Génération de la clé d'application Laravel..."
@@ -76,8 +76,8 @@ artisan:
 composer:
 	$(COMPOSER) $(cmd)
 
-bun:
-	$(BUN) $(cmd)
+pnpm:
+	$(PNPM) $(cmd)
 
 # Commandes pour le développement
 perm:

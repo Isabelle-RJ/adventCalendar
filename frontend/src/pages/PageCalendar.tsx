@@ -80,15 +80,18 @@ export default function PageCalendar() {
 
 
   return (
-    <div className="h-full w-full flex justify-center items-center">
+    <div className="h-full w-full p-4 flex justify-center items-center">
       <Calendar
         title={calendar?.title}
         image={calendar!.theme.image}
         slug={calendar?.slug}
         id={calendar?.id}
-        height="h-1/2" >
+        height="h-1/2"
+        width="w-1/2">
         {calendar?.items_cases.map((item_case) => (
-          <ItemCase key={item_case.id} number={item_case.number} gift={item_case.gift}/>
+          <ItemCase key={item_case.id}
+                    number={item_case.number}
+                    gift={item_case.gift}/>
         ))}
       </Calendar>
     </div>

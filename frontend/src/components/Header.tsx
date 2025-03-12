@@ -17,11 +17,11 @@ export default function Header() {
           />
         </NavLink>
         {authStatus === 'authenticated' && user && (
-          <div className="text-3xl font-['Mochiy_Pop_One'] text-secondary-dore">Bonjour {user.name} !</div>
+          <div className="text-xl lg:text-2xl md:text-xl font-['Mochiy_Pop_One'] text-secondary-dore">Bonjour {user.name} !</div>
         )}
         <div className="hidden w-full lg:block md:w-auto"
              id="navbar-default">
-          <ul className="flex flex-col p-4 md:p-0 mt-4 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0">
+          <ul className="lg:text-2xl md:text-xl flex flex-col p-4 md:p-0 mt-4 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0">
             <li>
               <NavLink
                 to="/dashboard"

@@ -10,8 +10,8 @@ class IndexCalendarController extends Controller
 {
     public function __invoke(): JsonResponse
     {
-        $authenticatedUser = auth()->user();
-        $calendars = Calendar::with('theme', 'user', 'itemsCases')->where('user_id', '=', $authenticatedUser->id)->get();
+        $authUser = auth()->user();
+        $calendars = Calendar::with('theme', 'user', 'itemsCases')->where('user_id', '=', $authUser->id)->get();
         return response()->json(compact('calendars'));
     }
 }

@@ -18,7 +18,7 @@ function App() {
         <p>Vous souhaitez envoyer un Calendrier de l'Avent personnalisé ?</p>
         <p> C’est gratuit et facile à utiliser ! Suivez ces instructions :</p>
         <ul  className='lg:ms-20'>
-          <li className='flex flex-row'> <PiFlowerLotusLight className='me-4' />Créer votre compte ou connectez-vous.</li>
+          <li className='flex flex-row'> <PiFlowerLotusLight className='me-4' />Créez votre compte ou connectez-vous.</li>
           <li className='flex flex-row'> <PiFlowerLotusLight className='me-4' />Choisissez votre fond.</li>
           <li className='flex flex-row'> <PiFlowerLotusLight className='me-4' />Remplissez les 25 cases avec un message.</li>
           <li className='flex flex-row'> <PiFlowerLotusLight className='me-4' />Et voilà !</li>
