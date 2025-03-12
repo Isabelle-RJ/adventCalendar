@@ -1,4 +1,4 @@
-import { useSearchParams } from 'react-router'
+import { Link, useSearchParams } from 'react-router'
 import Calendar from '../components/Calendar.tsx'
 import { useNavigate } from 'react-router-dom'
 import { FormEvent, useEffect, useState } from 'react'
@@ -171,14 +171,14 @@ export default function CreateCalendar() {
               )}
               <div
                 className="flex flex-col items-center justify-center w-full py-4 px-4 bg-primary-x-dark my-4 border-2 border-secondary-ivory font-semibold text-lg">
-                <p>Cliquez sur une case pour ajouter une surprise</p>
+                <p>Cliquez sur une case pour ajouter un message</p>
               </div>
             </div>
             <div className="hidden lg:flex items-center justify-between gap-6 w-full">
-              <button
+              <Link to="/selected-theme"
                 className="bg-secondary-dore text-2xl text-primary-dark px-4 py-2 rounded-md hover:bg-primary-x-dark hover:text-secondary-dore border border-secondary-dore hover:border-secondary-dore">
                 Retour
-              </button>
+              </Link>
               <button
                 className="bg-secondary-dore text-2xl text-primary-dark px-4 py-2 rounded-md hover:bg-primary-x-dark hover:text-secondary-dore border border-secondary-dore hover:border-secondary-dore">
                 Enregistrer
@@ -194,11 +194,11 @@ export default function CreateCalendar() {
             </Calendar>
           </div>
           <div className="flex lg:hidden flex-row items-center justify-center w-full">
-            <button
+            <Link to="/selected-theme"
               className="bg-secondary-dore text-primary-dark p-4 rounded-md hover:bg-primary-x-dark hover:text-secondary-dore border border-secondary-dore hover:border-secondary-dore me-4"
             >
               Retour
-            </button>
+            </Link>
             <button
               type="submit"
               className="bg-secondary-dore text-primary-dark p-4 rounded-md hover:bg-primary-x-dark hover:text-secondary-dore border border-secondary-dore hover:border-secondary-dore"

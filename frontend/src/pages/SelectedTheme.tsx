@@ -151,7 +151,7 @@ export default function SelectedTheme() {
             isVisible &&
             (
               <button
-                className="fixed bottom-4 border-2 border-white right-4 bg-secondary-dore text-primary-dark text-3xl p-4 rounded-md z-10"
+                className="fixed bottom-20 lg:bottom-4 border-2 border-white right-4 bg-secondary-dore text-primary-dark text-3xl p-4 rounded-md z-10"
                 onClick={scrollToTop}
               >
                   {selectedTheme ? 'Créer mon calendrier' : <FaArrowUp />}

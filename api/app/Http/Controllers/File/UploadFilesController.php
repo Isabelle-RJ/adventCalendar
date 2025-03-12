@@ -21,7 +21,7 @@ class UploadFilesController extends Controller
         $fileUuid = Str::uuid();
         if (!Storage::disk('public')->exists('uploads')) {
             Storage::disk('public')->makeDirectory('uploads');
-            chmod(storage_path('/app/public/uploads'), 0777);
+            chmod(storage_path('/app/public/uploads'), 0755);
         }
 
         if (Storage::disk('public')->exists('uploads/' . $fileUuid . '-' . $request->file('file')->getClientOriginalName())) {
@@ -38,7 +38,8 @@ class UploadFilesController extends Controller
         $optimizerService->save(storage_path('/app/public/uploads/'  . $fileUuid . '-' . $request->file('file')->getClientOriginalName()));
 
         if (Storage::disk('public')->exists('uploads/'  . $fileUuid . '-' . $request->file('file')->getClientOriginalName())) {
-            chmod(storage_path('/app/public/uploads/'  . $fileUuid . '-' . $request->file('file')->getClientOriginalName()), 0777);
+            chmod(storage_path('/app/public/uploads/'  . $fileUuid . '-' . $request->file('file')
+                    ->getClientOriginalName()), 0744);
 
             return response()->json([
                 'message' => "L'image a bien été enregistrée",

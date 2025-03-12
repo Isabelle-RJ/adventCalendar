@@ -15,6 +15,7 @@ import PrivateRoutes from './components/PrivateRoutes.tsx'
 import SelectedTheme from './pages/SelectedTheme.tsx'
 import Profile from './pages/Profile.tsx'
 import CreateCalendar from './pages/CreateCalendar.tsx'
+import PageCalendar from './pages/PageCalendar.tsx'
 
 const root = document.getElementById('root')
 
@@ -22,30 +23,32 @@ ReactDOM.createRoot(root!).render(
   <BrowserRouter>
     <AuthProvider>
       <Routes>
-        <Route element={<Layout />}>
+        <Route element={<Layout/>}>
           <Route path="/"
-            element={<App />} />
+                 element={<App/>}/>
           <Route path="/login"
-            element={<Login />} />
+                 element={<Login/>}/>
           <Route path="/register"
-            element={<Register />} />
+                 element={<Register/>}/>
           <Route path="/legale-mentions"
-            element={<LegalesMentions />} />
+                 element={<LegalesMentions/>}/>
           <Route path="/cgu"
-            element={<CGU />} />
+                 element={<CGU/>}/>
           <Route path="/contact"
-            element={<Contact />} />
+                 element={<Contact/>}/>
+          <Route path="/calendar/:id"
+                 element={<PageCalendar/>}/>
         </Route>
-        <Route element={<PrivateRoutes />} >
-          <Route element={<LayoutAdmin />}>
+        <Route element={<PrivateRoutes/>}>
+          <Route element={<LayoutAdmin/>}>
             <Route path="/dashboard"
-              element={<Dashboard />} />
+                   element={<Dashboard/>}/>
             <Route path="/selected-theme"
-              element={<SelectedTheme />} />
+                   element={<SelectedTheme/>}/>
             <Route path="/create-calendar"
-                   element={<CreateCalendar />} />
+                   element={<CreateCalendar/>}/>
             <Route path="/profile"
-              element={<Profile />} />
+                   element={<Profile/>}/>
           </Route>
         </Route>
       </Routes>
