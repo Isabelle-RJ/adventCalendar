@@ -64,7 +64,7 @@ services:
     image: mongo:8
     container_name: advent_mongo_db
     ports:
-      - "27018:27017"
+      - "27019:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
