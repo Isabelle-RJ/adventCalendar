@@ -1,4 +1,4 @@
-DOCKER_COMPOSE = docker-compose
+DOCKER_COMPOSE = docker compose
 PHP_CONTAINER = advent_app
 NGINX_CONTAINER = advent_nginx_server
 FRONT_END_CONTAINER = advent_node
