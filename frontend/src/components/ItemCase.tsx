@@ -14,15 +14,13 @@ export interface ItemCaseInterface {
 }
 
 interface ItemCaseProps {
-  id?: string,
   number: number,
   gift: string,
   is_opened?: boolean,
-  opened_at?: string,
   onDescriptionChange?: (id: string, description: string) => void,
 }
 
-export default function ItemCase({ id, number, gift, is_opened, opened_at }: ItemCaseProps) {
+export default function ItemCase({ number, gift, is_opened }: ItemCaseProps) {
   const [open, setOpen] = useState<boolean>(false)
   const today = DateTime.now().startOf('day')
 

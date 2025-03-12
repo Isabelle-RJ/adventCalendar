@@ -6,12 +6,17 @@ import { useAuth } from '../store/AuthContext.tsx'
 import { ItemCaseInterface } from '../components/ItemCase.tsx'
 import EditingItemCase from '../components/EditingItemCase.tsx'
 
+interface ErrorType{
+  title?: string
+  [key: string]: string | string[] | undefined;
+}
+
 export default function CreateCalendar() {
   const { token, checkAuth } = useAuth()
   const [params] = useSearchParams()
   const navigate = useNavigate()
   const [itemCases, setItemCases] = useState<ItemCaseInterface[]>([])
-  const [error, setError] = useState<string | null>(null)
+  const [error, setError] = useState<ErrorType>({ })
   const [loading, setLoading] = useState<boolean>(false)
 
   const numberOfCases = 25
@@ -53,7 +58,7 @@ export default function CreateCalendar() {
       return navigate('/selected-theme')
     }
 
-    const response = await fetch(`http://localhost:9001/api/checkPath?theme=${params.get('theme')}`, {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/checkPath?theme=${params.get('theme')}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -91,7 +96,7 @@ export default function CreateCalendar() {
     setLoading(true)
 
     try {
-      const calendarResponse = await fetch('http://localhost:9001/api/calendars/create', {
+      const calendarResponse = await fetch(`${import.meta.env.VITE_API_URL}/calendars/create`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -110,7 +115,7 @@ export default function CreateCalendar() {
       const data = await calendarResponse.json()
 
       if (!calendarResponse.ok) {
-        setError(data.error)
+        setError(data.error as ErrorType)
         return
       }
 
@@ -180,13 +185,14 @@ export default function CreateCalendar() {
                 Retour
               </Link>
               <button
+                disabled={loading}
                 className="bg-secondary-dore text-2xl text-primary-dark px-4 py-2 rounded-md hover:bg-primary-x-dark hover:text-secondary-dore border border-secondary-dore hover:border-secondary-dore">
                 Enregistrer
               </button>
             </div>
           </div>
           <div className="flex flex-col w-full">
-            <Calendar image={params.get('theme') as string} itemsCases={defaultCases}>
+            <Calendar image={params.get('theme') as string}>
               {itemCases.map((itemCase) => (
                 <EditingItemCase key={itemCase.number} number={itemCase.number} gift={itemCase.gift}
                                  onDescriptionChange={handleDescriptionChange}/>
@@ -200,6 +206,7 @@ export default function CreateCalendar() {
               Retour
             </Link>
             <button
+              disabled={loading}
               type="submit"
               className="bg-secondary-dore text-primary-dark p-4 rounded-md hover:bg-primary-x-dark hover:text-secondary-dore border border-secondary-dore hover:border-secondary-dore"
             >

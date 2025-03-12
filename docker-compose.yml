@@ -32,6 +32,19 @@ services:
     environment:
       - SERVER_NAME=${APP_DOMAIN}
       - ENVIRONMENT=${APP_ENV}
+      - API_SERVER_NAME=${APP_API_DOMAIN}
+
+  advent_certbot:
+    image: certbot/certbot:v3.1.0
+    container_name: certbot
+    volumes:
+      - ./nginx/certbot/conf:/etc/letsencrypt
+      - ./nginx/certbot/www:/var/www/certbot
+      - ./:/var/www/html
+    networks:
+      - advent_laravel_network
+    depends_on:
+      - advent_nginx
 
   advent_postgres:
     image: postgres:17

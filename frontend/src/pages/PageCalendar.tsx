@@ -29,7 +29,7 @@ export default function PageCalendar() {
     setLoading(true)
     try {
       if (authStatus === 'authenticated') {
-        const response = await fetch(`http://localhost:9001/api/calendars/${id}`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/calendars/${id}`, {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
@@ -46,7 +46,7 @@ export default function PageCalendar() {
         return setCalendar(data.calendar)
       }
       const response = await fetch(
-        `http://localhost:9001/api/show-share-calendar/${id}?signature=${params.get('signature')}`,
+        `${import.meta.env.VITE_API_URL}/show-share-calendar/${id}?signature=${params.get('signature')}`,
         {
           headers: {
             'Content-Type': 'application/json',

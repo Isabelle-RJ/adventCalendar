@@ -17,7 +17,7 @@ class UpdateThemeController extends Controller
     {
         $auth = auth()->user();
 
-        $theme = Theme::query()->where('user_id', '=', $auth->id)->where('slug', '=', $request->slug)->first();
+        $theme = Theme::query()->where('user_id', '=', $auth->id)->where('id', '=', $request->id)->first();
 
         if (!$theme) {
             throw new RuntimeException('Theme not found', 404);

@@ -19,12 +19,11 @@ export default function DeletingThemeModal(
   }: DeletingThemeModalProps) {
   const { token } = useAuth()
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [error, setError] = useState('')
 
   async function deleteTheme() {
     setIsLoading(true)
     try {
-      const response = await fetch(`http://localhost:9001/api/themes/${deletingTheme?.slug}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/themes/${deletingTheme?.slug}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -39,7 +38,7 @@ export default function DeletingThemeModal(
         throw new Error(data.error)
       }
     } catch (error: any) {
-      setError(error.message)
+      console.log(error.message)
     } finally {
       fetchThemes()
       setIsLoading(false)

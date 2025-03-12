@@ -58,7 +58,7 @@ Route::middleware('auth:sanctum')->group(
         Route::post('/themes/create', CreateThemeController::class);
         Route::post('/themes/uploads', UploadFilesController::class);
         Route::delete('/themes/{slug}', DeleteThemeController::class);
-        Route::patch('/themes/{slug}', UpdateThemeController::class);
+        Route::patch('/themes/{id}', UpdateThemeController::class);
         Route::get('/themes', IndexThemeController::class);
         // Route qui permet de récupérer le lien de partage d'un calendrier pour la modal.
         Route::get('/share-calendar/{id}', ShareCalendarController::class);

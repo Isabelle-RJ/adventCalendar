@@ -20,7 +20,7 @@ export default function Dashboard() {
 
   async function handleDelete(slug: string) {
     setDeleteLoading(true)
-    const response = await fetch(`http://localhost:9001/api/calendars/${slug}`, {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/calendars/${slug}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -43,7 +43,7 @@ export default function Dashboard() {
 
   async function fetchCalendars() {
     setLoading(true)
-    const response = await fetch('http://localhost:9001/api/calendars', {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/calendars`, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,
@@ -91,7 +91,6 @@ export default function Dashboard() {
                 key={calendar.id}
                 title={calendar.title}
                 image={calendar.image}
-                itemsCases={calendar.itemsCases}
                 slug={calendar.slug}
                 id={calendar.id}
                 onDelete={() => handleDelete(calendar.slug)}
@@ -102,11 +101,9 @@ export default function Dashboard() {
                 {calendar.itemsCases.map((itemCase) =>
                   <ItemCase
                     key={itemCase.id}
-                    id={itemCase.id}
                     number={itemCase.number}
                     gift={itemCase.gift}
                     is_opened={itemCase.is_opened}
-                    opened_at={itemCase.opened_at}
                   />,
                 )}
               </Calendar>

@@ -3,6 +3,12 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 
+interface ErrorType {
+    email?: string
+    password?: string
+    message?: string
+}
+
 interface User {
     id: string //uuid donc string
     name: string
@@ -20,7 +26,7 @@ interface User {
 
 interface AuthContextType {
     user: User | null
-    error: string | null
+    error: ErrorType
     token: string | null //token d'identification
     authStatus: "pending" | "authenticated" | "unauthenticated"
     setToken: (token: string) => void
@@ -38,7 +44,7 @@ interface AuthProviderProps {
 
 export function AuthProvider({ children }: AuthProviderProps) {
     const [user, setUser] = useState<User | null>(null)
-    const [error, setError] = useState<string | null>(null)
+    const [error, setError] = useState<ErrorType>({ })
     const [token, setToken] = useState<string | null>(null)
     const [authStatus, setAuthStatus] = useState<"pending" | "authenticated" | "unauthenticated">("pending")
     const navigate = useNavigate()
@@ -56,7 +62,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     async function login(email: string, password: string) {
         setAuthStatus("pending")
         try {
-            const response = await fetch('http://localhost:9001/api/login', {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -97,7 +103,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     async function register(name: string, email: string, password: string) {
         try {
-            const response = await fetch('http://localhost:9001/api/register', {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -120,7 +126,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     async function logout() {
         try {
-            const response = await fetch('http://localhost:9001/api/logout', {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/logout`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -155,7 +161,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     async function checkAuth(token: string) {
         try {
-            const response = await fetch('http://localhost:9001/api/user', {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/user`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

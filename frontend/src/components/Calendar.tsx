@@ -16,7 +16,6 @@ export interface CalendarProps {
   id?: string,
   onDelete?: (slug: string) => void,
   onDeleteLoading?: boolean,
-  onUpdate?: (slug: string) => void,
   onShare?: (id: string) => void,
   onShareLoading?: boolean,
   children?: ReactNode
@@ -26,12 +25,10 @@ export interface CalendarProps {
 }
 
 function btnContainer(
-  authStatus: string,
   slug: string | undefined,
   id: string | undefined,
   onDelete: ((slug: string) => void) | undefined,
   onDeleteLoading: boolean | undefined,
-  onUpdate: ((slug: string) => void) | undefined,
   onShare: ((id: string) => void) | undefined,
   onShareLoading: boolean | undefined,
 ) {
@@ -64,7 +61,6 @@ export default function Calendar(
     id,
     onDelete,
     onDeleteLoading,
-    onUpdate,
     children,
     height = 'h-full',
     width = 'w-full',
@@ -73,14 +69,14 @@ export default function Calendar(
   const [isSharing, setIsSharing] = useState<boolean>(false)
   const [sharedLink, setSharedLink] = useState<string>('')
   const [shareLoading, setShareLoading] = useState<boolean>(false)
-  const { token, authStatus, checkAuth } = useAuth()
+  const { token, checkAuth } = useAuth()
   const [isCopied, setIsCopied] = useState<boolean>(false)
 
   async function handleShare(id: string) {
     setShareLoading(true)
     setIsSharing(true)
     try {
-      const response = await fetch(`http://localhost:9001/api/share-calendar/${id}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/share-calendar/${id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -134,12 +130,10 @@ export default function Calendar(
         <div className="calendar-option flex items-center">
           <span className="name-calendar-present">{title}</span>
           {withOptions && btnContainer(
-            authStatus,
             slug,
             id,
             onDelete,
             onDeleteLoading,
-            onUpdate,
             handleShare,
             shareLoading)
           }

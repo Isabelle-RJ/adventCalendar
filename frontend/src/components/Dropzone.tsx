@@ -35,7 +35,7 @@ export default function Dropzone({ isMultiple = true, withModal = false, onFetch
 
         try {
             setLoading(true)
-            const response = await fetch('http://localhost:9001/api/themes/uploads', {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/themes/uploads`, {
                 method: 'POST',
                 headers: {
                     contentType: 'multipart/form-data',

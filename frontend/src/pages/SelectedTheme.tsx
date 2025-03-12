@@ -30,7 +30,7 @@ export default function SelectedTheme() {
     async function fetchThemes() {
         setLoading(true)
         try {
-            const response = await fetch('http://localhost:9001/api/themes', {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/themes`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -51,7 +51,7 @@ export default function SelectedTheme() {
 
     async function uploadToDatabase(themeName: string, image: string) {
         try {
-            const response = await fetch('http://localhost:9001/api/themes/create', {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/themes/create`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

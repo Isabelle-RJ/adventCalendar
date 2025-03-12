@@ -4,7 +4,7 @@ NGINX_CONTAINER = advent_nginx_server
 FRONT_END_CONTAINER = advent_node
 ARTISAN = $(DOCKER_COMPOSE) exec $(PHP_CONTAINER) php artisan
 COMPOSER = $(DOCKER_COMPOSE) exec $(PHP_CONTAINER) composer
-PNPM = $(DOCKER_COMPOSE) exec $(FRONT_END_CONTAINER) advent_node
+PNPM = $(DOCKER_COMPOSE) exec $(FRONT_END_CONTAINER) pnpm
 CURRENT_UID := $(shell id -u)
 CURRENT_GID := $(shell id -g)
 

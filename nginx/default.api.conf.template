@@ -1,31 +1,29 @@
 server {
     listen 80;
     listen [::]:80;
-    server_name ${SERVER_NAME};
-
-    return 301 https://$host$request_uri;
+    server_name ${API_SERVER_NAME};
+    if ($host = api-oseznoel.isabellejurain.fr) {
+        return 301 https://$host$request_uri;
+    }
+    return 404;
 }
 
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
-    server_name ${SERVER_NAME};
+    server_name ${API_SERVER_NAME};
 
-    ssl_certificate /etc/letsencrypt/live/${SERVER_NAME}/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/${SERVER_NAME}/privkey.pem;
+    ssl_certificate /etc/letsencrypt/live/${API_SERVER_NAME}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/${API_SERVER_NAME}/privkey.pem;
 
     root /var/www/html/public;
     index index.php;
-
-    if ($host = isabellejurain.fr) {
-        return 301 https://www.$host$request_uri;
-    }
 
     add_header X-Frame-Options "SAMEORIGIN";
     add_header X-Content-Type-Options "nosniff";
 
     location / {
-        proxy_pass http://127.0.0.1:5173;
+        try_files $uri $uri/ /index.php?$query_string;
     }
 
     location = /favicon.ico { access_log off; log_not_found off; }

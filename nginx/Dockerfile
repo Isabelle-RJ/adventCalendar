@@ -7,13 +7,14 @@ RUN apk add --no-cache bash gettext
 # Copie les fichiers de template dans le conteneur
 COPY default.conf.template /etc/nginx/template/default.conf.template
 COPY default.prod.conf.template /etc/nginx/template/default.prod.conf.template
+COPY default.api.conf.template /etc/nginx/template/default.api.conf.template
 
 # Commande d'entrée : Choisit le bon template en fonction de l'environnement
 CMD ["/bin/sh", "-c", "\
     if [ \"$ENVIRONMENT\" = \"production\" ]; then \
-        TEMPLATE=/etc/nginx/template/default.prod.conf.template; \
+        envsubst '$$SERVER_NAME' < /etc/nginx/template/default.prod.conf.template > /etc/nginx/conf.d/default.prod.conf && \
+        envsubst '$$API_SERVER_NAME' < /etc/nginx/template/default.api.conf.template > /etc/nginx/conf.d/default.api.conf; \
     else \
-        TEMPLATE=/etc/nginx/template/default.conf.template; \
+        envsubst '$$SERVER_NAME' < /etc/nginx/template/default.conf.template > /etc/nginx/conf.d/default.conf; \
     fi; \
-    envsubst '$$SERVER_NAME' < $TEMPLATE > /etc/nginx/conf.d/default.conf && \
     exec nginx -g 'daemon off;'"]
