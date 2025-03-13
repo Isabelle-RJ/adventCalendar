@@ -1,5 +1,4 @@
 import { Link } from 'react-router'
-import { MdOutlineEditCalendar } from 'react-icons/md'
 import { RiDeleteBin6Fill } from 'react-icons/ri'
 import { ReactNode, useState } from 'react'
 import { BsArrowsFullscreen, BsFillShareFill } from 'react-icons/bs'
