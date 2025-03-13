@@ -25,7 +25,7 @@ server {
     add_header X-Content-Type-Options "nosniff";
 
     location / {
-        proxy_pass http://127.0.0.1:5173;
+        proxy_pass http://127.0.0.1:4173;
     }
 
     location = /favicon.ico { access_log off; log_not_found off; }
