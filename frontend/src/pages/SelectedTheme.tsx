@@ -230,7 +230,7 @@ export default function SelectedTheme() {
                     : 'border-0'} 
                     object-cover w-full h-[300px] cursor-pointer`
                             }
-                            src={`http://localhost:9001/public?path=${theme.image}&width=900`}
+                            src={`${import.meta.env.VITE_IMG_URL}/public?path=${theme.image}&width=900`}
                             alt={theme.theme_name}
                           />
                       </div>
