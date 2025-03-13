@@ -50,7 +50,7 @@ api:
 
 client:
 	@echo "🎯 Initialisation du projet React..."
-	$(DOCKER_COMPOSE) exec -d $(FRONT_END_CONTAINER) sh -c "pnpm install && pnpm dev"
+	$(DOCKER_COMPOSE) exec -d $(FRONT_END_CONTAINER) sh -c "pnpm install && pnpm dev --port 4173"
 
 keygen:
 	@echo "🔑 Génération de la clé d'application Laravel..."

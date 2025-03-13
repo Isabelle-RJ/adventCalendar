@@ -1,6 +1,7 @@
 import { WiStars } from 'react-icons/wi'
 import { NavLink } from 'react-router'
 import { useAuth } from '../store/AuthContext'
+import Logo from '../assets/logo-oseznoel.svg'
 
 export default function Header() {
   const { authStatus, logout, user } = useAuth() // destructuration de l'objet useAuth
@@ -11,7 +12,7 @@ export default function Header() {
         <NavLink
           to="/"
           className="flex items-center space-x-3 rtl:space-x-reverse">
-          <img src="/../src/assets/logo-oseznoel.svg"
+          <img src={Logo}
                className="logo-osez-noel"
                alt="Logo de Osez Noël"
           />

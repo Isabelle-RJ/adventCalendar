@@ -2,7 +2,7 @@ import { Link } from 'react-router'
 import { MdOutlineEditCalendar } from 'react-icons/md'
 import { RiDeleteBin6Fill } from 'react-icons/ri'
 import { ReactNode, useState } from 'react'
-import { BsFillShareFill } from 'react-icons/bs'
+import { BsArrowsFullscreen, BsFillShareFill } from 'react-icons/bs'
 import Modal from './Modal.tsx'
 import { useAuth } from '../store/AuthContext.tsx'
 import { IoCopy } from 'react-icons/io5'
@@ -34,8 +34,8 @@ function btnContainer(
 ) {
   return (
     <div className="div-options flex flex-row">
-      <Link to={`/calendar/update/${slug}`}> {/* string templating : slug = calendrier-de-prenom */}
-        <MdOutlineEditCalendar className="icons-calendar text-secondary-argent hover:text-primary-blue"/>
+      <Link to={`/calendar/${id}`}>
+        <BsArrowsFullscreen className="icons-calendar text-secondary-argent hover:text-primary-blue"/>
       </Link>
       <button onClick={() => onDelete ? onDelete(slug as string) : null}
               disabled={onDeleteLoading}
@@ -93,7 +93,7 @@ export default function Calendar(
       }
 
       const data = await response.json()
-      const url = `http://localhost:5173/calendar/${data.id}?signature=${data.signature}`
+      const url = `${import.meta.env.VITE_DOMAIN}/calendar/${data.id}?signature=${data.signature}`
       setSharedLink(url)
       checkAuth(token as string)
     } catch (error: any) {
@@ -140,7 +140,7 @@ export default function Calendar(
         </div>
         <div
           className="container xl:h-[50vh] mx-auto w-full flex flex-wrap justify-center items-center bg-no-repeat bg-cover gap-6 p-4 lg:px-4 xl:px-4"
-          style={{ backgroundImage: `url(http://localhost:9001/public?path=${image})` }}
+          style={{ backgroundImage: `url(${import.meta.env.VITE_IMG_URL}/public?path=${image})` }}
         >
           {children}
         </div>
