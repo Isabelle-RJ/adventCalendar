@@ -22,6 +22,7 @@ services:
       - ./:/var/www/html
       - ./nginx/certbot/conf:/etc/letsencrypt
       - ./nginx/certbot/www:/var/www/certbot
+      - ./frontend/dist:/var/www/html/dist
     ports:
       - "${APP_PORT}:80"
       - "443:443"
