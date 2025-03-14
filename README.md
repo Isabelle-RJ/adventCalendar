@@ -21,7 +21,7 @@ This project is an Advent Calendar application that provides daily surprises lea
     
 3.  Install Docker Desktop
 
-4.  Create `` ./.env`` file
+4.  Create `` ./.env`` file,  ```./api/.env``` and ```./frontend/.env```. Copy the content of ``.env.example`` , ``./api/.env.example`` and ```./frontend/.env.example``` into the new files.
 
 5. Install:
 
@@ -34,5 +34,5 @@ This project is an Advent Calendar application that provides daily surprises lea
 
 ## Usage
 
-1. Open your browser and navigate to `http://localhost:9001` and `http://localhost:5173`.
+1. Open your browser and navigate to `http://localhost:9001` and `http://localhost:4173`.
 
