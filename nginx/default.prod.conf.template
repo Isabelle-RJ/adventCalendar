@@ -1,23 +1,10 @@
 server {
     listen 80;
-    listen [::]:80;
     server_name oseznoel.isabellejurain.fr;
-
-    return 301 https://$host$request_uri;
-}
-
-server {
-    listen 443 ssl;
-    listen [::]:443 ssl;
-    server_name ${SERVER_NAME};
-
-    ssl_certificate /etc/letsencrypt/live/${API_SERVER_NAME}/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/${API_SERVER_NAME}/privkey.pem;
 
     root /var/www/html/dist;
     index index.html;
 
-    # Gestion du routage côté client pour React
     location / {
         try_files $uri /index.html;
     }
@@ -27,6 +14,5 @@ server {
         access_log off;
     }
 
-    # Rediriger les erreurs 404 vers index.html (React SPA)
     error_page 404 /index.html;
 }
